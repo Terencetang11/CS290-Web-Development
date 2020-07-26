@@ -23,6 +23,7 @@ function genContext(){
 }
 
 app.get('/time',function(req,res){
+  console.log(genContext())
   res.render('time', genContext());
 });
 
@@ -31,7 +32,9 @@ function getRandomInt(max) {
 }
 
 app.get('/random-number', function(req,res){
-  res.render('random-number', getRandomInt(1000));
+  var num = getRandomInt(1000);
+  console.log(num)
+  res.render('random-number', num);
 });
 
 
