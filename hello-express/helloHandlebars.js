@@ -29,12 +29,13 @@ app.get('/time',function(req,res){
 });
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+  var stuffToDisplay = {};
+  stuffToDisplay.num = Math.floor(Math.random() * Math.floor(max));
+  return stuffToDisplay;
 }
 
 app.get('/random-number', function(req,res){
   var num = getRandomInt(1000);
-  
   res.render('random-number', num);
   console.log(num)
 });
