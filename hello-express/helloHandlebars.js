@@ -26,6 +26,15 @@ app.get('/time',function(req,res){
   res.render('time', genContext());
 });
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+app.get('/random-number', function(req,res){
+  res.render('random-number', getRandomInt(1000));
+});
+
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
