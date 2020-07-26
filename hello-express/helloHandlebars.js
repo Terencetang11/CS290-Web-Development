@@ -23,8 +23,9 @@ function genContext(){
 }
 
 app.get('/time',function(req,res){
-  console.log(genContext())
+  
   res.render('time', genContext());
+  console.log(genContext())
 });
 
 function getRandomInt(max) {
@@ -33,8 +34,9 @@ function getRandomInt(max) {
 
 app.get('/random-number', function(req,res){
   var num = getRandomInt(1000);
-  console.log(num)
+  
   res.render('random-number', num);
+  console.log(num)
 });
 
 
