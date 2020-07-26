@@ -40,7 +40,6 @@ app.get('/random-number', function(req,res){
   console.log(num)
 });
 
-
 app.use(function(req,res){
   res.status(404);
   res.render('404');
