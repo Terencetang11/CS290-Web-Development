@@ -31,7 +31,7 @@ function getRandomInt(max) {
 }
 
 app.get('/random-number', function(req,res){
-  res.render('random-number', getRandomInt(1000));
+  res.render('random-number');
 });
 
 
