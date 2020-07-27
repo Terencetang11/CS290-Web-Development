@@ -27,7 +27,7 @@ app.get('/show-data',function(req,res){
   var context = {};
   context.dataList = qParams;
   res.render('get-show-data', context);
-  console.log(qParams);
+  console.log(context);
 });
 
 
