@@ -14,7 +14,7 @@ app.get('/other-page',function(req,res){
   res.send('Welcome to the other page!');
 });
 
-app.get('random-number', function(req,res){
+app.get('/random-number', function(req,res){
   num = Math.floor(Math.random() * Math.floor(max));
   res.type('text/plain');
   res.send("This is the random number page.  The random number is: " + num)
