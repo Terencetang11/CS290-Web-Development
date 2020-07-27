@@ -27,12 +27,31 @@ app.get('/show-data',function(req,res){
   var context = {};
   context.dataList = qParams;
   res.render('get-show-data', context);
+  console.log(qParams);
 });
 
 
 // renders POST request for /show-data page
 app.post('/show-data',function(req,res){
+  // parse out url parameters
+  var urlParams = [];
+  for (var p in req.query){
+    urlParams.push({'name':p,'value':req.query[p]})
+  }
+  
+  // parse out post Body parameters
+  var bodyParams = [];
+  for (var p in req.body){
+    bodyParams.push({'name':p,'value':req.body[p]})
+  }
+  console.log(bodyParams);
+  console.log(req.body);
 
+  // adds both url and body parameters to context as nested input objects
+  var context = {};
+  context.dataList = {};
+  
+  res.render('post-show-data', urlContext, bodyContext);
 });
 
 
