@@ -3,12 +3,7 @@ var express = require('express');
 var app = express();
 
 app.set('port', process.argv[2]);
-
-app.get('/',function(req,res){
-  res.type('text/plain');
-  res.send('Welcome to the main page!');
-});
-
+ 
 app.get('/other-page',function(req,res){
   res.type('text/plain');
   res.send('Welcome to the other page!');
