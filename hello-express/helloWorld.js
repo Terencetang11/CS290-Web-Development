@@ -15,7 +15,7 @@ app.get('/other-page',function(req,res){
 });
 
 app.get('/random-number', function(req,res){
-  num = Math.floor(Math.random() * Math.floor(max));
+  num = Math.floor(Math.random() * Math.floor(10000));
   res.type('text/plain');
   res.send("This is the random number page.  The random number is: " + num)
 });
