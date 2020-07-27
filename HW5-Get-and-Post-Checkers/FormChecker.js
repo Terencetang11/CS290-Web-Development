@@ -27,7 +27,6 @@ app.get('/show-data',function(req,res){
   var context = {};
   context.dataList = qParams;
   res.render('get-show-data', context);
-  console.log(context);
 });
 
 
@@ -49,9 +48,10 @@ app.post('/show-data',function(req,res){
 
   // adds both url and body parameters to context as nested input objects
   var context = {};
-  context.dataList = {};
+  context.urlList = urlParams;
+  context.bodyList = bodyParams;
   
-  res.render('post-show-data', urlContext, bodyContext);
+  res.render('post-show-data', context);  // calls handlebars to render page by passing context
 });
 
 
