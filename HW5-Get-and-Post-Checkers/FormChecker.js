@@ -20,10 +20,13 @@ app.get('/',function(req,res){
 
 // renders GET request for /show-data page
 app.get('/show-data',function(req,res){
+  // parses out each parameter in the URL query string
   var qParams = [];
   for (var p in req.query){
-    qParams.push({'name':p,'value':req.query[p]})
+    qParams.push({'name':p,'value':req.query[p]})   // formats each list object as a dictionary with name and value keys
   }
+
+  // adds query parameters list to context formatted as a dictionary e.g. Handlebar input object
   var context = {};
   context.dataList = qParams;
   res.render('get-show-data', context);
@@ -32,19 +35,17 @@ app.get('/show-data',function(req,res){
 
 // renders POST request for /show-data page
 app.post('/show-data',function(req,res){
-  // parse out url parameters
+  // parses out each parameter in the URL query string
   var urlParams = [];
   for (var p in req.query){
-    urlParams.push({'name':p,'value':req.query[p]})
+    urlParams.push({'name':p,'value':req.query[p]})   // formats each list object as a dictionary with name and value keys
   }
   
-  // parse out post Body parameters
+  // parses out each parameter in the POST body string
   var bodyParams = [];
   for (var p in req.body){
-    bodyParams.push({'name':p,'value':req.body[p]})
+    bodyParams.push({'name':p,'value':req.body[p]})   // formats each list object as a dictionary with name and value keys
   }
-  console.log(bodyParams);
-  console.log(req.body);
 
   // adds both url and body parameters to context as nested input objects
   var context = {};
