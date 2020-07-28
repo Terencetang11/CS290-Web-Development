@@ -20,7 +20,7 @@ app.get('/other-page',function(req,res){
 });
 
 // renders counts page which maintains a sessions tracker for count of page visits by single browser instance
-app.get('counts', function(req,res){
+app.get('/counts', function(req,res){
   var context = {}
   context.counts = req.session.count || 0;
   req.session.count = context.counts + 1;
