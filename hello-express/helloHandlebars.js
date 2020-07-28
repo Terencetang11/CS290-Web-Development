@@ -10,6 +10,7 @@ var session = require('express-session');
 app.use(session({secret: 'supersecretpassword'}));
 
 // sets up bodyParsing for xwww URL and JSON formatted POST submissions
+var bodyParser = require('body-parser');  // initializes bodyParser handler
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
