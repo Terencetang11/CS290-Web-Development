@@ -9,6 +9,10 @@ app.set('view engine', 'handlebars');
 var session = require('express-session');
 app.use(session({secret: 'supersecretpassword'}));
 
+// sets up bodyParsing for xwww URL and JSON formatted POST submissions
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // render homepage
 app.get('/',function(req,res){
   res.render('home');
@@ -27,6 +31,17 @@ app.get('/counts', function(req,res){
   res.render('counts', context);
 });
 
+app.post('/counts', function(req,res){
+  // if post body contains command = resetCounter;
+    // set req.session.count = 0
+  if (req.query.command == 'resetCounter'){
+    req.session.count = 0
+  }
+  var context = {}
+  context.counts = req.session.count || 0;
+  req.session.count = context.counts + 1;
+  res.render('counts', context);
+})
 
 // generates time as handlebars input object
 function genContext(){

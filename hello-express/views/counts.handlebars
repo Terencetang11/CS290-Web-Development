@@ -1,1 +1,13 @@
-<h1>The random number is {{{counts}}} </h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Counts</title>
+    </head>
+    <body> 
+        <h1>The random number is {{{counts}}} </h1>
+        <form action="/count" method="post">
+	        <input type="submit" name="command" value="resetCounter">
+        </form>
+    </body>
+
