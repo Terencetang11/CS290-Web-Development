@@ -14,5 +14,9 @@
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
     "mysql": "^2.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Terencetang11/CS290-Server-Side-Examples.git"
   }
 }
