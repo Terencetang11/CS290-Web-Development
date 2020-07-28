@@ -32,7 +32,6 @@ app.get('/show-data',function(req,res){
   res.render('get-show-data', context);
 });
 
-
 // renders POST request for /show-data page
 app.post('/show-data',function(req,res){
   // parses out each parameter in the URL query string
@@ -53,29 +52,6 @@ app.post('/show-data',function(req,res){
   context.bodyList = bodyParams;
   
   res.render('post-show-data', context);  // calls handlebars to render page by passing context
-});
-
-
-app.get('/get-loopback-improved',function(req,res){
-  var qParams = [];
-  for (var p in req.query){
-    qParams.push({'name':p,'value':req.query[p]})
-  }
-  var context = {};
-  context.dataList = qParams;
-  res.render('get-loopback-improved', context);
-});
-
-app.post('/post-loopback', function(req,res){
-  var qParams = [];
-  for (var p in req.body){
-    qParams.push({'name':p,'value':req.body[p]})
-  }
-  console.log(qParams);
-  console.log(req.body);
-  var context = {};
-  context.dataList = qParams;
-  res.render('post-loopback', context);
 });
 
 app.use(function(req,res){
