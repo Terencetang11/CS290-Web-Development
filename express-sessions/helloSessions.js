@@ -10,7 +10,7 @@ app.use(session({secret:'SuperSecretPassword'}));
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3000);
+app.set('port', process.argv[2]);
 
 app.get('/count',function(req,res){
   var context = {};
