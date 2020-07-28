@@ -35,7 +35,7 @@ app.get('/counts', function(req,res){
 app.post('/counts', function(req,res){
   // if post body contains command = resetCounter;
     // set req.session.count = 0
-  if (req.query.command === 'resetCounter'){
+  if (req.body.command === "resetCounter"){
     req.session.count = 0
   }
   var context = {}
