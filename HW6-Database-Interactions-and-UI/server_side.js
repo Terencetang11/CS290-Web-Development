@@ -17,7 +17,7 @@ var mysql = require('./dbcon.js');
 app.get('/',function(req,res,next){
   var context = {};
   // on arrive to homepage
-  if (!req.query.sql){
+  if (!req.query.type){
     mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
       // SQL query for creating a new table
       var createString = "CREATE TABLE exercise(" +
