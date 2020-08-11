@@ -79,7 +79,7 @@ app.get('/',function(req,res,next){
         return;
       }
       console.log("row deleted");
-      context.results = "Deleted " + result.changedRows + " rows.";
+      context.results = "Deleted " + result.affectdRows + " rows.";
       context.test = "row deleted"
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
