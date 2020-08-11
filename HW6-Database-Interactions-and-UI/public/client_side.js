@@ -140,7 +140,7 @@ function generateBorder(tagName){
     }
 }
 
-document.getElementById("table_result").onclick = function(event) {
+document.getElementById("results_table").onclick = function(event) {
     let target = event.target; // where was the click?
   
     if (target.name != 'delete') return; // not on TD? Then we're not interested
