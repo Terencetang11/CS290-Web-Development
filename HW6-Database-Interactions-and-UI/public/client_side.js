@@ -29,7 +29,15 @@ function bindButtons(){
                 document.getElementById('date_input').value = null;
                 document.getElementById('unit_input').value = null;
                 
-                buildTable(JSON.parse(response.rows))
+                buildTable(JSON.parse(response.rows));
+                deletes = document.getElementsByName("delete");
+                for (var button in deletes){
+                    button.onClick = deleteRow(button.id)
+                }
+                updates = document.getElementsByName("delete");
+                for (var button in updates){
+                    //button.onClick = deleteRow(button.id)
+                }
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -116,6 +124,7 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "update";
+                newButton.name = "update"
                 newButton.id = rows[row].id;
                 
                 var newCell = document.createElement("td");
@@ -125,6 +134,7 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "delete";
+                newButton.name = "delete"
                 newButton.id = rows[row].id;
         }
         
@@ -139,7 +149,6 @@ function generateBorder(tagName){
         elements[i].style.borderStyle = "solid";
     }
 }
-
 
 function deleteRow(rowID) {
     try {
