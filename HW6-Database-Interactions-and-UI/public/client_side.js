@@ -104,8 +104,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked");
         }
         
-        document.getElementById("updates_submit").setAttribute("hidden", true)
         document.getElementById("exercise_submit").removeAttribute("hidden")
+        document.getElementById("updates_submit").setAttribute("hidden", true)
         
         
         
