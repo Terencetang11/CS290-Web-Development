@@ -44,7 +44,6 @@ function bindButtons(){
 
 document.getElementById('results_output').addEventListener('click', function(event){
     let target = event.target; // where was the click?
-    let targetid = target.id;
     // if delete button clicked
     if (target.name == 'delete') {
         // for cases where during mid-update delete was pressed, cancels record edit and deletes cell
@@ -79,13 +78,10 @@ document.getElementById('results_output').addEventListener('click', function(eve
     
     // if update button clicked
     } else if (target.name == 'update') {
-        console.log(target);
-        console.log(target.id);
-        console.log(targetid);
         // updates original submission form to be used as update form
         document.getElementById("exercise_submit").setAttribute("hidden", true)
         document.getElementById("updates_submit").removeAttribute("hidden")
-        document.getElementById("updates_submit").value = target.id
+        document.getElementById("updates_submit").name = target.id
 
         // sets current target records values into the update forms fields
         var cell = target.parentNode.parentNode.firstChild
@@ -115,7 +111,7 @@ document.getElementById('updates_submit').addEventListener('click', function(eve
     // requests a record update given a target record id with newly updated values
     var req = new XMLHttpRequest();
     var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
-    payload += "&id=" + document.getElementById('updates_submit').value;
+    payload += "&id=" + document.getElementById('updates_submit').name;
     payload += "&name=" + document.getElementById('name_input').value;
     payload += "&reps=" + document.getElementById('reps_input').value;
     payload += "&weight=" + document.getElementById('weight_input').value;
