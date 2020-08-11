@@ -99,9 +99,9 @@ document.getElementById('results_output').addEventListener('click', function(eve
         cell = cell.nextSibling
         console.log(cell)
         if (cell.textContent == "lbs") {
-            document.getElementById('lbs').setAttribute("checked");
+            document.getElementById('lbs').setAttribute("checked", true);
         } else {
-            document.getElementById('kg').setAttribute("checked");
+            document.getElementById('kg').setAttribute("checked", true);
         }
         
         document.getElementById("exercise_submit").removeAttribute("hidden")
