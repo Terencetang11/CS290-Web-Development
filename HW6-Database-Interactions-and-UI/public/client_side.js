@@ -10,6 +10,7 @@ function bindButtons(){
         payload += "&weight=" + document.getElementById('weight_input').value;
         payload += "&date=" + document.getElementById('date_input').value;
         var units;
+        // to handle lbs boolean result
         if (document.getElementById('lbs').checked){
             units = 1;
         } else {
@@ -18,24 +19,19 @@ function bindButtons(){
         payload += "&lbs=" + units;
 
         req.open("GET", payload, true);
-        console.log(payload);
+        // set up listener prior to send to make aync call 
         req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
-                console.log("response received:")//delete this
                 var response = JSON.parse(req.responseText);
                 
-                // do something with the response
-                document.getElementById("resultsP").textContent = response.results
-                document.getElementById("rowsP").textContent = response.rows
-                document.getElementById("testP").textContent = response.test
-
+                // resets input form values
                 document.getElementById('name_input').value = null;
                 document.getElementById('reps_input').value = null;
                 document.getElementById('weight_input').value = null;
                 document.getElementById('date_input').value = null;
                 
+                // builds table from latest sql db updates
                 buildTable(JSON.parse(response.rows));
-                console.log("table built")
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -51,7 +47,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
     
     // if delete button clicked
     if (target.name == 'delete') {
-        // for cases where during mid-update delete was pressed
+        // for cases where during mid-update delete was pressed, cancels record edit and deletes cell
         document.getElementById('name_input').value = null;
         document.getElementById('reps_input').value = null;
         document.getElementById('weight_input').value = null;
@@ -59,25 +55,18 @@ document.getElementById('results_output').addEventListener('click', function(eve
         document.getElementById("exercise_submit").setAttribute("hidden", false)
         document.getElementById("updates_submit").setAttribute("hidden", true)
 
-        // update database for removal
+        // update database for removal of record
         var req = new XMLHttpRequest();
         var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=delete';
         payload += "&id=" + target.id;
         
         req.open("GET", payload, true);
-        console.log(payload);
+        // set up listener prior to send to make aync call 
         req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
-                console.log("response received:")//delete this
                 var response = JSON.parse(req.responseText);
-                
-                // do something with the response
-                document.getElementById("resultsP").textContent = response.results
-                document.getElementById("rowsP").textContent = response.rows
-                document.getElementById("testP").textContent = response.test
-                
+                // builds table from latest sql db updates           
                 buildTable(JSON.parse(response.rows));
-                console.log("table built")
             } else {
                 console.log("Error in network request: " + req.statusText);
             }
@@ -85,13 +74,15 @@ document.getElementById('results_output').addEventListener('click', function(eve
         req.send(null);
         event.preventDefault();
         
-        deleteRow(target); // delete table row
+        deleteRow(target); // delete table row in UI
     
     // if update button clicked
     } else if (target.name == 'update') {
+        // updates original submission form to be used as update form
         document.getElementById("exercise_submit").setAttribute("hidden", true)
         document.getElementById("updates_submit").removeAttribute("hidden")
-
+        
+        // sets current target records values into the update forms fields
         var cell = target.parentNode.parentNode.firstChild
         console.log(cell)
         document.getElementById('name_input').value = cell.value
@@ -112,7 +103,9 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked", true);
         }
         
+        // kicks-off listener for the 'submit update' button press
         document.getElementById('updates_submit').addEventListener('click', function(event){
+            // requests a record update given a target record id with newly updated values
             var req = new XMLHttpRequest();
             var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
             payload += "&id=" + target.id;
@@ -123,19 +116,12 @@ document.getElementById('results_output').addEventListener('click', function(eve
             payload += "&lbs=" + document.getElementById('lbs').checked;
             
             req.open("GET", payload, true);
-            console.log(payload);
+            // set up listener prior to send to make aync call 
             req.addEventListener('load',function(){
                 if(req.status >= 200 && req.status < 400){
-                    console.log("response received:")//delete this
                     var response = JSON.parse(req.responseText);
-                    
-                    // do something with the response
-                    document.getElementById("resultsP").textContent = response.results
-                    document.getElementById("rowsP").textContent = response.rows
-                    document.getElementById("testP").textContent = response.test
-                    
+                    // builds table from latest sql db updates           
                     buildTable(JSON.parse(response.rows));
-                    console.log("table built")
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }
@@ -144,6 +130,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
             req.send(null);
             event.preventDefault();
 
+            // once update is complete, swaps update form back into submission form
             document.getElementById('name_input').value = null;
             document.getElementById('reps_input').value = null;
             document.getElementById('weight_input').value = null;
@@ -158,7 +145,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
 });
 
 
-
+// used for deleting row from table UI
 function deleteRow(button) {
     try {
         var row = button.parentNode.parentNode;
@@ -169,6 +156,7 @@ function deleteRow(button) {
     //getValues();
 }
 
+// used for building table UI
 function buildTable(rows){
     // Create new Table Node on each query pull
     element = document.getElementById("results_table");

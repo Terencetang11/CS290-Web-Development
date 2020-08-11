@@ -19,30 +19,34 @@ app.use(express.static('public'));
 
 app.get('/',function(req,res,next){
   var context = {};
-  // on arrive to homepage
+  // on arrive to homepage, checks if a table exists; resets table otherwise
   if (!req.query.type){
-    mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
-      // SQL query for creating a new table
-      var createString = "CREATE TABLE exercise(" +
-      "id INT PRIMARY KEY AUTO_INCREMENT," +
-      "name VARCHAR(255) NOT NULL," +
-      "reps INT," +
-      "weight INT," +
-      "date DATE," +
-      "lbs BOOLEAN)";
-      mysql.pool.query(createString, function(err, results, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = JSON.stringify(results);
-        context.fields = JSON.stringify(fields);
-        context.rows = JSON.stringify(rows);
-        context.test = "new table created"
-        console.log("new table made")
-        res.render('home',context);
-      });
-    });
+    mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.rows = JSON.stringify(rows);
+      res.render('home', context);
+    })
+    
+    // mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
+    //   // SQL query for creating a new table
+    //   var createString = "CREATE TABLE exercise(" +
+    //   "id INT PRIMARY KEY AUTO_INCREMENT," +
+    //   "name VARCHAR(255) NOT NULL," +
+    //   "reps INT," +
+    //   "weight INT," +
+    //   "date DATE," +
+    //   "lbs BOOLEAN)";
+    //   mysql.pool.query(createString, function(err, results, rows, fields){
+    //     if(err){
+    //       next(err);
+    //       return;
+    //     }
+    //     res.render('home',context);
+    //   });
+    // });
   }
   // when inserting new exercise
   else if (req.query.type == "insert"){
@@ -53,20 +57,12 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
-      console.log("new row added");
-      context.results = "Inserted id " + results.insertId;
-      context.test = "new row added";
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
           next(err);
           return;
         }
-        console.log("select query ran");
-        console.log(rows);
         context.rows = JSON.stringify(rows);
-        context.fields = JSON.stringify(fields);
-        console.log("context output");
-        console.log(context);
         res.type('application/json');
         res.send(context);
       })
@@ -79,19 +75,12 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
-      console.log("row deleted");
-      context.results = "Deleted " + result.affectdRows + " rows.";
-      context.test = "row deleted"
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
           next(err);
           return;
         }
-        console.log("select query ran");
-        console.log(rows);
         context.rows = JSON.stringify(rows);
-        context.fields = JSON.stringify(fields);
-        console.log("context output")
         console.log(context)
         res.type('application/json')
         res.send(context);
@@ -105,9 +94,6 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
-      console.log("row updated");
-      context.results = "updated " + result.changeddRows + " rows.";
-      context.test = "row updated"
       if(result.length == 1){
         var curVals = result[0];
         mysql.pool.query("UPDATE exercise SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
@@ -122,12 +108,7 @@ app.get('/',function(req,res,next){
               next(err);
               return;
             }
-            console.log("select query ran");
-            console.log(rows);
             context.rows = JSON.stringify(rows);
-            context.fields = JSON.stringify(fields);
-            console.log("context output")
-            console.log(context)
             res.type('application/json')
             res.send(context);
           })
@@ -139,9 +120,23 @@ app.get('/',function(req,res,next){
     console.log("error occurred")
     res.send(context);
   }
-  // when deleting a record
+});
 
-  // when editing a record
+app.get('/reset-table',function(req,res,next){
+  var context = {};
+  mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
+    var createString = "CREATE TABLE exercise(" +
+    "id INT PRIMARY KEY AUTO_INCREMENT," +
+    "name VARCHAR(255) NOT NULL," +
+    "reps INT," +
+    "weight INT," +
+    "date DATE," +
+    "lbs BOOLEAN)";
+    mysql.pool.query(createString, function(err){
+      context.results = "Table reset";
+      res.render('home',context);
+    })
+  });
 });
 
 app.use(function(req,res){
