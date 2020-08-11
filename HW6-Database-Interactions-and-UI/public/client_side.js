@@ -30,14 +30,6 @@ function bindButtons(){
                 document.getElementById('unit_input').value = null;
                 
                 buildTable(JSON.parse(response.rows));
-                deletes = document.getElementsByName("delete");
-                for (var button in deletes){
-                    button.onClick = deleteRow(button.id)
-                }
-                updates = document.getElementsByName("delete");
-                for (var button in updates){
-                    //button.onClick = deleteRow(button.id)
-                }
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -136,6 +128,7 @@ function buildTable(rows){
                 newButton.value = "delete";
                 newButton.name = "delete"
                 newButton.id = rows[row].id;
+                newButton.addEventListener('click', deleteRow(this.id), false);
         }
         
     generateBorder("table")
@@ -154,7 +147,6 @@ function deleteRow(rowID) {
     try {
         var row = document.getElementById(rowID).parentNode.parentNode;
         row.parentNode.removeChild(row)
-        
     } catch (e) {
         alert(e);
     }
