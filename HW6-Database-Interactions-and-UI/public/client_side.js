@@ -41,8 +41,8 @@ function bindButtons(){
 
 function deleteRow(rowID) {
     try {
-        var parent = document.getElementById(rowID).parent;
-        parent.removeChild(document.getElementById(rowID))
+        var row = document.getElementById(rowID).parentNode.parentNode;
+        row.paretnNode.removeChild(row)
         
     } catch (e) {
         alert(e);
@@ -97,7 +97,7 @@ function buildTable(rows){
         for (var row = 0; row < rows.length; row++){
             // Create TR node
             var rowNode = document.createElement("tr");
-            rowNode.id = rows[row].id;
+            //rowNode.id = rows[row].id;
             bodyNode.appendChild(rowNode);
                 // Create Table Cells
                 var newCell = document.createElement("td");
@@ -127,7 +127,8 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "update";
-                newButton.onclick = deleteRow(rowNode.id);
+                newButton.id = rows[row].id;
+                newButton.onclick = deleteRow(rows[row].id);
                 
                 var newCell = document.createElement("td");
                 rowNode.appendChild(newCell);
@@ -136,7 +137,8 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "delete";
-                newButton.onclick = deleteRow(rowNode.id);
+                newButton.id = rows[row].id;
+                newButton.onclick = deleteRow(rows[row].id);
         }
         
     generateBorder("table")
