@@ -113,16 +113,16 @@ function buildTable(rows){
                 rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("input");
-                newButton.type = "button"
+                newButton.type = "button";
                 newButton.value = "update";
-                newButton.onclick = deleteRow(table_results,this)
-                rowNode.appendChild(newButton)
+                newButton.onclick = deleteRow(table_results,this);
+                rowNode.appendChild(newButton);
 
                 var newButton = document.createElement("input");
-                newButton.type = "button"
+                newButton.type = "button";
                 newButton.value = "delete";
-                newButton.onclick = deleteRow(table_results,this)
-                rowNode.appendChild(newButton)
+                newButton.onclick = deleteRow(table_results,this);
+                rowNode.appendChild(newButton);
                 
               
         }
