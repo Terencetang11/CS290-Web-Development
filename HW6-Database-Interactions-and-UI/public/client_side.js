@@ -84,7 +84,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
         document.getElementById("exercise_submit").setAttribute("hidden", true)
         document.getElementById("updates_submit").removeAttribute("hidden")
 
-        var cell = target.parentNode.parentNode.firstchild
+        var cell = target.parentNode.parentNode.firstChild
         console.log(cell)
         document.getElementById('name_input').value = cell.value
         cell = cell.nextSibling
