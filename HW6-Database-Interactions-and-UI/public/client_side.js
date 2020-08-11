@@ -128,8 +128,8 @@ function buildTable(rows){
                 newButton.value = "delete";
                 newButton.name = "delete"
                 newButton.id = rows[row].id;
-                newButton.addEventListener('click', deleteRow(this.id), false);
-        }
+                //newButton.addEventListener('click', deleteRow(this.id), false);
+            }
         
     generateBorder("table")
     generateBorder("tr")
