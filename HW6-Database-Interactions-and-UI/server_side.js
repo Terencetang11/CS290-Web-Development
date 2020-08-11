@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 app.set('port', process.argv[2]);
@@ -68,7 +67,6 @@ app.get('/',function(req,res,next){
           return;
         }
         context.rows = JSON.stringify(rows);
-        console.log(context)
         res.type('application/json')
         res.send(context);
       })
@@ -104,6 +102,31 @@ app.get('/',function(req,res,next){
           })
         });
       }
+    });
+  } 
+  else if (req.query.type == "reset"){
+    // query deletes identified record from db 
+    mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
+      var createString = "CREATE TABLE exercise(" +
+      "id INT PRIMARY KEY AUTO_INCREMENT," +
+      "name VARCHAR(255) NOT NULL," +
+      "reps INT," +
+      "weight INT," +
+      "date DATE," +
+      "lbs BOOLEAN)";
+      mysql.pool.query(createString, function(err, results){
+        context.results = "Table reset";
+        // query selects all data from db for table refresh
+        mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
+          if(err){
+            next(err);
+            return;
+          }
+          context.rows = JSON.stringify(rows);
+          res.type('application/json')
+          res.send(context);
+        })
+      })
     });
   } else {
     res.send(context);
