@@ -294,6 +294,4 @@ document.getElementById('reset_table').addEventListener('click', function(event)
     req.send(null);
     event.preventDefault();
 
-    document.getElementById("exercise_submit").remove("hidden")
-    document.getElementById("updates_submit").setAttribute("hidden", true)
 })
