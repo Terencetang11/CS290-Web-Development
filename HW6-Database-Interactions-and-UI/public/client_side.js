@@ -42,7 +42,7 @@ function bindButtons(){
         console.log("deleted");
         
     
-        if (target.name != "delete") return; // not on TD? Then we're not interested
+        //if (target.name != "delete") return; // not on TD? Then we're not interested
         deleteRow(target); // delete row
     });
 }
@@ -51,8 +51,8 @@ function bindButtons(){
 
 function deleteRow(button) {
     try {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row)
+        //var row = button.parentNode.parentNode;
+        button.parentNode.removeChild(row)
     } catch (e) {
         alert(e);
     }
@@ -130,6 +130,7 @@ function buildTable(rows){
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
+                newCell.name = "delete";
                 rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("button");
@@ -139,6 +140,7 @@ function buildTable(rows){
                 newButton.id = rows[row].id;
                 
                 var newCell = document.createElement("td");
+                newCell.name = "delete";
                 rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("button");
