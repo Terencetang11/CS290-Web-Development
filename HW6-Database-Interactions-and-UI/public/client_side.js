@@ -18,9 +18,9 @@ function bindButtons(){
                 console.log(req.responseText)
                 var response = JSON.parse(req.responseText);
                 // // do something with the response
-                document.getElementById("resultsP").textContet = response.results
-                document.getElementById("rowsP").textContet = response.rows
-                document.getElementById("testP").textContet = response.test
+                document.getElementById("resultsP").textContent = response.results
+                document.getElementById("rowsP").textContent = response.rows
+                document.getElementById("testP").textContent = response.test
                 
 
                 // document.getElementById('city').textContent = response.name;
