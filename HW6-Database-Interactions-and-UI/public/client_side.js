@@ -140,9 +140,17 @@ function generateBorder(tagName){
     }
 }
 
-function deleteRow(rowID) {
+document.getElementById("table_result").onclick = function(event) {
+    let target = event.target; // where was the click?
+  
+    if (target.name != 'delete') return; // not on TD? Then we're not interested
+  
+    deleteRow(target); // highlight it
+  };
+
+function deleteRow(button) {
     try {
-        var row = document.getElementById(rowID).parentNode.parentNode;
+        var row = button.parentNode.parentNode;
         row.parentNode.removeChild(row)
     } catch (e) {
         alert(e);
