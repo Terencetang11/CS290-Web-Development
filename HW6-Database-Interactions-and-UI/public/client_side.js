@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', bindButtons);
-document.addEventListener('DOMContentLoaded', bindDeletes);
 
 function bindButtons(){
     document.getElementById('exercise_submit').addEventListener('click', function(event){
@@ -39,14 +38,6 @@ function bindButtons(){
         event.preventDefault();
     })
 }  
-
-function bindDeletes(){
-    var deletes = document.getElementsByName("delete");
-    for (var button in deletes){
-        button.addEventListener('click',deleteRow(button.id))
-        console.log("added delete")
-    }
-}
 
 function buildTable(rows){
     // Create new Table Node on each query pull
@@ -121,9 +112,8 @@ function buildTable(rows){
                 var newCell = document.createElement("td");
                 rowNode.appendChild(newCell);
 
-                var newButton = document.createElement("input");
+                var newButton = document.createElement("button");
                 newCell.appendChild(newButton);
-                newButton.type = "button";
                 newButton.value = "update";
                 newButton.name = "update"
                 newButton.id = rows[row].id;
@@ -131,13 +121,11 @@ function buildTable(rows){
                 var newCell = document.createElement("td");
                 rowNode.appendChild(newCell);
 
-                var newButton = document.createElement("input");
+                var newButton = document.createElement("button");
                 newCell.appendChild(newButton);
-                newButton.type = "button";
                 newButton.value = "delete";
                 newButton.name = "delete"
                 newButton.id = rows[row].id;
-                //newButton.addEventListener('click', deleteRow(this.id), false);
             }
         
     generateBorder("table")
