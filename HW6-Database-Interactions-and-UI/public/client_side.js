@@ -41,9 +41,9 @@ function bindButtons(){
 
 document.getElementById("results_table").addEventListener('click', function(event) {
     let target = event.target; // where was the click?
-  
+    console.log("deleted")
+
     if (target.name != "delete") return; // not on TD? Then we're not interested
-  
     deleteRow(target); // highlight it
 });
 
