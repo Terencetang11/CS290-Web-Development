@@ -63,9 +63,11 @@ app.get('/',function(req,res,next){
         }
         console.log("select query ran");
         console.log(rows);
-        context.rows = rows;
-        context.fields = fields;
+        context.rows = JSON.stringify(rows);
+        context.fields = JSON.stringify(fields);
       })
+      console.log("context output")
+      console.log(context)
       res.type('application/json')
       res.send(context);
     });
