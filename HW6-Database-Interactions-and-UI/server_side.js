@@ -47,7 +47,7 @@ app.get('/',function(req,res,next){
   // when inserting new exercise
   else if (req.query.type == "insert"){
     mysql.pool.query("INSERT INTO exercise SET ?" //(`name`, 'reps', 'weight', 'date', 'unit') VALUES (?)"
-    , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, data:req.query.date, unit:req.query.unit}
+    , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, date:req.query.date, unit:req.query.unit}
     , function(err, results){
       if(err){
         next(err);
