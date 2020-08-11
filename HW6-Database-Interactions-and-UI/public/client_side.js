@@ -36,17 +36,17 @@ function bindButtons(){
         req.send(null);
         event.preventDefault();
     })
-
-    document.getElementById('results_table').addEventListener('click', function(event){
-        let target = event.target; // where was the click?
-        console.log("deleted");
-        
-    
-        //if (target.name != "delete") return; // not on TD? Then we're not interested
-        deleteRow(target); // delete row
-    });
 }
 
+const table = document.getElementById("results_table");
+table.addEventListener('click', function(event){
+    let target = event.target; // where was the click?
+    console.log("deleted");
+    
+
+    //if (target.name != "delete") return; // not on TD? Then we're not interested
+    //deleteRow(target); // delete row
+});
 
 
 function deleteRow(button) {
