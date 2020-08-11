@@ -104,48 +104,48 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked", true);
         }
         
-        document.getElementById("exercise_submit").removeAttribute("hidden")
-        document.getElementById("updates_submit").setAttribute("hidden", true)
+        document.getElementById('updates_submit').addEventListener('click', function(event){
+            var req = new XMLHttpRequest();
+            var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
+            payload += "&id=" + target.id;
+            payload += "&name=" + document.getElementById('name_input').value;
+            payload += "&reps=" + document.getElementById('reps_input').value;
+            payload += "&weight=" + document.getElementById('weight_input').value;
+            payload += "&date=" + document.getElementById('date_input').value;
+            payload += "&lbs=" + document.getElementById('lbs').checked;
+            
+            req.open("GET", payload, true);
+            console.log(payload);
+            req.addEventListener('load',function(){
+                if(req.status >= 200 && req.status < 400){
+                    console.log("response received:")//delete this
+                    var response = JSON.parse(req.responseText);
+                    
+                    // do something with the response
+                    document.getElementById("resultsP").textContent = response.results
+                    document.getElementById("rowsP").textContent = response.rows
+                    document.getElementById("testP").textContent = response.test
+                    
+                    buildTable(JSON.parse(response.rows));
+                    console.log("table built")
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            
+            req.send(null);
+            event.preventDefault();
+            
+            document.getElementById("exercise_submit").removeAttribute("hidden")
+            document.getElementById("updates_submit").setAttribute("hidden", true)
+        })
         
-        
-        
-        
-        
-        // var req = new XMLHttpRequest();
-        // var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
-        // payload += "&id=" + target.id;
-        // payload += "&name=" + document.getElementById('name_input').value;
-        // payload += "&reps=" + document.getElementById('reps_input').value;
-        // payload += "&weight=" + document.getElementById('weight_input').value;
-        // payload += "&date=" + document.getElementById('date_input').value;
-        // payload += "&lbs=" + document.getElementById('lbs').checked;
-        
-        // req.open("GET", payload, true);
-        // console.log(payload);
-        // req.addEventListener('load',function(){
-        //     if(req.status >= 200 && req.status < 400){
-        //         console.log("response received:")//delete this
-        //         var response = JSON.parse(req.responseText);
-                
-        //         // do something with the response
-        //         document.getElementById("resultsP").textContent = response.results
-        //         document.getElementById("rowsP").textContent = response.rows
-        //         document.getElementById("testP").textContent = response.test
-                
-        //         buildTable(JSON.parse(response.rows));
-        //         console.log("table built")
-        //     } else {
-        //         console.log("Error in network request: " + req.statusText);
-        //     }
-        // });
-        // req.send(null);
-        // event.preventDefault();
-        
-        // deleteRow(target); // delete table row
     } else {
         return;
     }
 });
+
+
 
 function deleteRow(button) {
     try {

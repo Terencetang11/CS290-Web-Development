@@ -71,7 +71,8 @@ app.get('/',function(req,res,next){
         res.send(context);
       })
     });
-  } 
+  }
+  // when deleting an exercise
   else if (req.query.type == "delete"){
     mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function(err, result){
       if(err){
@@ -95,6 +96,43 @@ app.get('/',function(req,res,next){
         res.type('application/json')
         res.send(context);
       })
+    });
+  }
+  // when updating an existing exercise
+  else if (req.query.type == "update"){
+    mysql.pool.query("SELECT * FROM todo WHERE id=?", [req.query.id], function(err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      console.log("row updated");
+      context.results = "updated " + result.changeddRows + " rows.";
+      context.test = "row updated"
+      if(result.length == 1){
+        var curVals = result[0];
+        mysql.pool.query("UPDATE todo SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
+          [req.query.name || curVals.name, req.query.reps || curVals.reps, req.query.weight || curVals.weight, req.query.date || curVals.date, req.query.lbs || curVals.lbs, req.query.id],
+          function(err, result){
+          if(err){
+            next(err);
+            return;
+          }
+          mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
+            if(err){
+              next(err);
+              return;
+            }
+            console.log("select query ran");
+            console.log(rows);
+            context.rows = JSON.stringify(rows);
+            context.fields = JSON.stringify(fields);
+            console.log("context output")
+            console.log(context)
+            res.type('application/json')
+            res.send(context);
+          })
+        });
+      }
     });
   } else {
     context.test = "error occured"
