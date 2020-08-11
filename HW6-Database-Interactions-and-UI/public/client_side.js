@@ -128,6 +128,7 @@ function buildTable(rows){
                 newButton.value = "delete";
                 newButton.name = "delete"
                 newButton.id = rows[row].id;
+                document.addEventListener('DOMContentLoaded', newButton.onClick = deleteRow(newButton.id));
                 //newButton.addEventListener('click', deleteRow(this.id), false);
             }
         
