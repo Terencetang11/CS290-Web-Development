@@ -75,8 +75,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
     
     // if update button clicked
     } else if (target.name == 'update') {
-        document.getElementsById("exercise_submit").setAttribute("hidden")
-        document.getElementsById("updates_submit").removeAttribute("hidden")
+        document.getElementById("exercise_submit").setAttribute("hidden")
+        document.getElementById("updates_submit").removeAttribute("hidden")
 
         var cell = target.parentNode.parentNode.firstchild
         document.getElementById('name_input').value = cell.value
@@ -93,8 +93,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked");
         }
         
-        document.getElementsById("updates_submit").setAttribute("hidden")
-        document.getElementsById("exercise_submit").removeAttribute("hidden")
+        document.getElementById("updates_submit").setAttribute("hidden")
+        document.getElementById("exercise_submit").removeAttribute("hidden")
         
         
         
