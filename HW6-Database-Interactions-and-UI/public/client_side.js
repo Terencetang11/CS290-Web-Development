@@ -39,17 +39,6 @@ function bindButtons(){
     })
 }  
 
-function deleteRow(rowID) {
-    try {
-        var row = document.getElementById(rowID).parentNode.parentNode;
-        row.parentNode.removeChild(row)
-        
-    } catch (e) {
-        alert(e);
-    }
-    //getValues();
-}
-
 function buildTable(rows){
     // Create new Table Node on each query pull
     element = document.getElementById("results_table");
@@ -153,5 +142,16 @@ function generateBorder(tagName){
     }
 }
 
+
+function deleteRow(rowID) {
+    try {
+        var row = document.getElementById(rowID).parentNode.parentNode;
+        row.parentNode.removeChild(row)
+        
+    } catch (e) {
+        alert(e);
+    }
+    //getValues();
+}
 
 
