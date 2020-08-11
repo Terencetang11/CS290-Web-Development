@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', bindButtons);
 
 function bindButtons(){
+    console.log("dom loaded and checking")
     document.getElementById('exercise_submit').addEventListener('click', function(event){
         var req = new XMLHttpRequest();
         var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=insert';
@@ -37,19 +38,21 @@ function bindButtons(){
         req.send(null);
         event.preventDefault();
     })
+
+    const table = document.getElementById("results_table");
+    console.log("reading table:")
+    console.log(table);
+    table.addEventListener('click', function(event){
+        let target = event.target; // where was the click?
+        console.log("deleted");
+        
+
+        //if (target.name != "delete") return; // not on TD? Then we're not interested
+        //deleteRow(target); // delete row
+    });
 }
 
-const table = document.getElementById("results_table");
-console.log("reading table:")
-console.log(table);
-table.addEventListener('click', function(event){
-    let target = event.target; // where was the click?
-    console.log("deleted");
-    
 
-    //if (target.name != "delete") return; // not on TD? Then we're not interested
-    //deleteRow(target); // delete row
-});
 
 
 function deleteRow(button) {
