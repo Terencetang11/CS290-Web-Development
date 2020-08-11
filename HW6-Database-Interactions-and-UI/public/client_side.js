@@ -108,6 +108,14 @@ function buildTable(rows){
                 var newCell = document.createElement("td");
                 newCell.textContent = rows[row].unit;
                 rowNode.appendChild(newCell);
+
+                var newCell = document.createElement("td");
+                rowNode.appendChild(newCell);
+
+                var newButton = document.createElement("button")
+                newButton.textContent = "Delete"
+                newButton.onclick = "deleteRow(table_results,this)"
+
                 
               
         }
@@ -122,4 +130,30 @@ function generateBorder(tagName){
     for(var i = elements.length - 1; i >= 0; i--){
         elements[i].style.borderStyle = "solid";
     }
+}
+
+
+function deleteRow(tableID,currentRow) {
+    try {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+            var row = table.rows[i];
+            /*var chkbox = row.cells[0].childNodes[0];*/
+            /*if (null != chkbox && true == chkbox.checked)*/
+            
+            if (row==currentRow.parentNode.parentNode) {
+                if (rowCount <= 1) {
+                    alert("Cannot delete all the rows.");
+                    break;
+                }
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+            }
+        }
+    } catch (e) {
+        alert(e);
+    }
+    //getValues();
 }
