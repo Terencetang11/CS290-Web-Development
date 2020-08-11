@@ -46,21 +46,18 @@ app.get('/',function(req,res,next){
   }
   // when inserting new exercise
   else if (req.query.type == "insert"){
-    console.log("new insert occurred")
-    context.test = "new row added"
-    res.render('home',context);
-    // mysql.pool.query("INSERT INTO exercise (`name`, 'reps', 'weight', 'date', 'unit' ) VALUES (?)"
-    // , [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit ]
-    // , function(err, result){
-    //   if(err){
-    //     next(err);
-    //     return;
-    //   }
-    //   context.results = "Inserted id " + result.insertId;
-    //   context.rows = JSON.stringify(rows);
-    //   context.test = "new row added"
-    //   res.send(context);
-    // });
+    mysql.pool.query("INSERT INTO exercise (`name`, 'reps', 'weight', 'date', 'unit' ) VALUES (?)"
+    , [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit ]
+    , function(err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = "Inserted id " + result.insertId;
+      context.rows = JSON.stringify(rows);
+      context.test = "new row added"
+      res.send(context);
+    });
   } else {
     context.test = "error occured"
     console.log("error occurred")
