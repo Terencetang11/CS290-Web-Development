@@ -42,7 +42,7 @@ function bindButtons(){
 function deleteRow(rowID) {
     try {
         var row = document.getElementById(rowID).parentNode.parentNode;
-        row.paretnNode.removeChild(row)
+        row.parentNode.removeChild(row)
         
     } catch (e) {
         alert(e);
