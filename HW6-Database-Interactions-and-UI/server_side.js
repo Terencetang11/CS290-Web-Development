@@ -9,6 +9,9 @@ app.set('view engine', 'handlebars');
 
 var mysql = require('./dbcon.js');
 
+// set up file path for file management and directory and path middleware for serving up static files
+var path = require('path');
+app.use(express.static('public'));
 
 // homepage load needs:
   // check if query exists OR create table query
