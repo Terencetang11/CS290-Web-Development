@@ -39,25 +39,11 @@ function bindButtons(){
     })
 }  
 
-function deleteRow(table,currentRow) {
+function deleteRow(rowID) {
     try {
-        //var table = document.getElementById(tableID);
-        var rowCount = table.rows.length;
-        for (var i = 0; i < rowCount; i++) {
-            var row = table.rows[i];
-            /*var chkbox = row.cells[0].childNodes[0];*/
-            /*if (null != chkbox && true == chkbox.checked)*/
-            
-            if (row==currentRow.parentNode.parentNode) {
-                if (rowCount <= 1) {
-                    alert("Cannot delete all the rows.");
-                    break;
-                }
-                table.deleteRow(i);
-                rowCount--;
-                i--;
-            }
-        }
+        var parent = document.getElementById(rowID).parent;
+        parent.removeChild(document.getElementById(rowID))
+        
     } catch (e) {
         alert(e);
     }
@@ -138,21 +124,21 @@ function buildTable(rows){
                 rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("input");
+                newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "update";
-                newButton.onclick = deleteRow(this.parentNode.parentNode.parentNode.parentNode,this);
-                newCell.appendChild(newButton);
-
+                newButton.id = rowNode.id
+                newButton.onclick = deleteRow(rowNode.id);
+                
                 var newCell = document.createElement("td");
                 rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("input");
+                newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "delete";
-                newButton.onclick = deleteRow(table_results,this);
-                newCell.appendChild(newButton);
-                
-              
+                newButton.id = rowNode.id
+                newButton.onclick = deleteRow(rowNode.id);
         }
         
     generateBorder("table")
