@@ -39,19 +39,18 @@ function bindButtons(){
         event.preventDefault();
     })
 
-    const table = document.getElementById("results_table");
-    console.log("reading table:")
-    console.log(table);
-    table.addEventListener('click', function(event){
-        let target = event.target; // where was the click?
-        console.log("deleted");
-        
-
-        //if (target.name != "delete") return; // not on TD? Then we're not interested
-        //deleteRow(target); // delete row
-    });
 }
+const table = document.getElementById("results_table");
+console.log("reading table:")
+console.log(table);
+table.addEventListener('click', function(event){
+    let target = event.target; // where was the click?
+    console.log("deleted");
+    
 
+    //if (target.name != "delete") return; // not on TD? Then we're not interested
+    //deleteRow(target); // delete row
+});
 
 
 
