@@ -43,6 +43,7 @@ function bindButtons(){
 document.getElementById('results_output').addEventListener('click', function(event){
     let target = event.target; // where was the click?
     
+    // if delete button clicked
     if (target.name == 'delete') {
         // update database for removal
         var req = new XMLHttpRequest();
@@ -71,15 +72,68 @@ document.getElementById('results_output').addEventListener('click', function(eve
         event.preventDefault();
         
         deleteRow(target); // delete table row
-
+    
+    // if update button clicked
     } else if (target.name == 'update') {
+        document.getElementsById("exercise_submit").setAttribute("hidden")
+        document.getElementsById("updates_submit").removeAttribute("hidden")
 
+        var cell = target.parentNode.parentNode.firstchild
+        document.getElementById('name_input').value = cell.value
+        cell = cell.nextSibling
+        document.getElementById('reps_input').value = cell.value
+        cell = cell.nextSibling
+        document.getElementById('weight_input').value = cell.value
+        cell = cell.nextSibling
+        document.getElementById('date_input').value = cell.value
+        cell = cell.nextSibling
+        if (cell.textContent == "lbs") {
+            document.getElementById('lbs').setAttribute("checked");
+        } else {
+            document.getElementById('kg').setAttribute("checked");
+        }
+        
+        document.getElementsById("updates_submit").setAttribute("hidden")
+        document.getElementsById("exercise_submit").removeAttribute("hidden")
+        
+        
+        
+        
+        
+        // var req = new XMLHttpRequest();
+        // var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
+        // payload += "&id=" + target.id;
+        // payload += "&name=" + document.getElementById('name_input').value;
+        // payload += "&reps=" + document.getElementById('reps_input').value;
+        // payload += "&weight=" + document.getElementById('weight_input').value;
+        // payload += "&date=" + document.getElementById('date_input').value;
+        // payload += "&lbs=" + document.getElementById('lbs').checked;
+        
+        // req.open("GET", payload, true);
+        // console.log(payload);
+        // req.addEventListener('load',function(){
+        //     if(req.status >= 200 && req.status < 400){
+        //         console.log("response received:")//delete this
+        //         var response = JSON.parse(req.responseText);
+                
+        //         // do something with the response
+        //         document.getElementById("resultsP").textContent = response.results
+        //         document.getElementById("rowsP").textContent = response.rows
+        //         document.getElementById("testP").textContent = response.test
+                
+        //         buildTable(JSON.parse(response.rows));
+        //         console.log("table built")
+        //     } else {
+        //         console.log("Error in network request: " + req.statusText);
+        //     }
+        // });
+        // req.send(null);
+        // event.preventDefault();
+        
+        // deleteRow(target); // delete table row
     } else {
         return;
     }
-
-    //if (target.name != "delete") return; // not on TD? Then we're not interested
-    //deleteRow(target); // delete row
 });
 
 function deleteRow(button) {
@@ -143,22 +197,31 @@ function buildTable(rows){
             bodyNode.appendChild(rowNode);
                 // Create Table Cells
                 var newCell = document.createElement("td");
+                newCell.name = "name";
+                newCell.value = rows[row].name;
                 newCell.textContent = rows[row].name;
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
+                newCell.name = "reps";
+                newCell.value = rows[row].reps;
                 newCell.textContent = rows[row].reps;
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
+                newCell.name = "weight";
+                newCell.value = rows[row].weight;
                 newCell.textContent = rows[row].weight;
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
+                newCell.name = "date";
+                newCell.value = rows[row].date.slice(0,10);
                 newCell.textContent = rows[row].date.slice(0,10);
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
+                newCell.name = "units";
                 var units;
                 if (rows[row].lbs == true) {
                     units = "lbs"
