@@ -114,7 +114,7 @@ function buildTable(rows){
 
                 var newButton = document.createElement("button");
                 newCell.appendChild(newButton);
-                newButton.value = "update";
+                newButton.textContent = "update";
                 newButton.name = "update"
                 newButton.id = rows[row].id;
                 
@@ -123,7 +123,7 @@ function buildTable(rows){
 
                 var newButton = document.createElement("button");
                 newCell.appendChild(newButton);
-                newButton.value = "delete";
+                newButton.textContent = "delete";
                 newButton.name = "delete"
                 newButton.id = rows[row].id;
             }
