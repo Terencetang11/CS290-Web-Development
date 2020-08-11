@@ -48,7 +48,7 @@ app.get('/',function(req,res,next){
   else if (req.query.type == "insert"){
     mysql.pool.query("INSERT INTO exercise (`name`) VALUES (?)"
     , [req.query.name]
-    , function(err, result){
+    , function(err, rows, result){
       if(err){
         next(err);
         return;
