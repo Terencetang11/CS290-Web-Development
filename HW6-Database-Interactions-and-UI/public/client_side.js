@@ -40,10 +40,8 @@ function bindButtons(){
     })
 
 }
-const table = document.getElementById("results_table");
 console.log("reading table:")
-console.log(table);
-table.addEventListener('click', function(event){
+document.getElementsByName("delete").addEventListener('click', function(event){
     let target = event.target; // where was the click?
     console.log("deleted");
     
@@ -70,7 +68,7 @@ function buildTable(rows){
     element.parentNode.removeChild(element);
     var table = document.createElement("table");
     table.id = "results_table"
-    document.appendChild(table);
+    document.getElementById("results_output").appendChild(table);
 
     // Create Caption Node
     var captionNode = document.createElement("caption");
