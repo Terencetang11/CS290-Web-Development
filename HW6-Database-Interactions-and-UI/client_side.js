@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 function bindButtons(){
     document.getElementById('exercise_submit').addEventListener('click', function(event){
         var req = new XMLHttpRequest();
-        var payload = 'sql="INSERT INTO todo (`name`) VALUES (?)"'
+        var payload = 'type="insert"&sql="INSERT INTO todo (`name`) VALUES (?)"'
         payload += "&name=" + document.getElementById('name_input')
         payload += "&reps=" + document.getElementById('reps_input')
         payload += "&weight=" + document.getElementById('weight_input')

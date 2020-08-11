@@ -22,17 +22,22 @@ app.get('/',function(req,res,next){
     "CREATE TABLE exercise(" +
     "id INT PRIMARY KEY AUTO_INCREMENT," +
     "name VARCHAR(255) NOT NULL," +
-    "done BOOLEAN," +
-    "due DATE)"
-    , function(err, result){
+    "rep INT," +
+    "weight INT," +
+    "due DATE," +
+    "unit VARCHAR(255))"
+    , function(err, result, fields){
       if(err){
         next(err);
         return;
       }
-      context.results = "Inserted id " + result.insertId;
+      context.results = JSON.stringify(fields)
       res.render('home',context);
     });
-  };
+  }
+  else if (req.query.sql.type == "insert"){
+
+  }
 });
 
 app.get('/delete',function(req,res,next){
