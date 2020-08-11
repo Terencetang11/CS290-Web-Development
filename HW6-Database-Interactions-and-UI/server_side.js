@@ -17,26 +17,23 @@ var mysql = require('./dbcon.js');
 app.get('/',function(req,res,next){
   var context = {};
   if (!req.query.sql){
-    mysql.pool.query(
-    // SQL query for creating a new table
-    "CREATE TABLE exercise(" +
-    "id INT PRIMARY KEY AUTO_INCREMENT," +
-    "name VARCHAR(255) NOT NULL," +
-    "rep INT," +
-    "weight INT," +
-    "due DATE," +
-    "unit VARCHAR(255))"
-    , function(err, result, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = JSON.stringify(fields)
-      res.render('home',context);
-    });
+    mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
+      // SQL query for creating a new table
+      var createString = "CREATE TABLE exercise(" +
+      "id INT PRIMARY KEY AUTO_INCREMENT," +
+      "name VARCHAR(255) NOT NULL," +
+      "rep INT," +
+      "weight INT," +
+      "due DATE," +
+      "unit VARCHAR(255))";
+      mysql.pool.query(createString, function(err, fields){
+        context.results = JSON.stringify(fields);
+        res.render('home',context);
+      })
+    })
   }
   else if (req.query.sql.type == "insert"){
-
+    
   }
 });
 
