@@ -29,7 +29,7 @@ app.get('/',function(req,res,next){
       "reps INT," +
       "weight INT," +
       "date DATE," +
-      "unit VARCHAR(255))";
+      "lbs BOOLEAN)";
       mysql.pool.query(createString, function(err, results, rows, fields){
         if(err){
           next(err);
@@ -47,7 +47,7 @@ app.get('/',function(req,res,next){
   // when inserting new exercise
   else if (req.query.type == "insert"){
     mysql.pool.query("INSERT INTO exercise SET ?" //(`name`, 'reps', 'weight', 'date', 'unit') VALUES (?)"
-    , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, date:req.query.date, unit:req.query.unit}
+    , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, date:req.query.date, lbs:req.query.lbs}
     , function(err, results){
       if(err){
         next(err);

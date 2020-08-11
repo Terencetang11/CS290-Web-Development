@@ -9,7 +9,7 @@ function bindButtons(){
         payload += "&reps=" + document.getElementById('reps_input').value;
         payload += "&weight=" + document.getElementById('weight_input').value;
         payload += "&date=" + document.getElementById('date_input').value;
-        payload += "&unit=" + document.getElementById('unit_input').value;
+        payload += "&lbs=" + document.getElementById('lbs').checked;
 
         req.open("GET", payload, true);
         console.log(payload);
@@ -27,7 +27,6 @@ function bindButtons(){
                 document.getElementById('reps_input').value = null;
                 document.getElementById('weight_input').value = null;
                 document.getElementById('date_input').value = null;
-                document.getElementById('unit_input').value = null;
                 
                 buildTable(JSON.parse(response.rows));
                 console.log("table built")
@@ -160,7 +159,13 @@ function buildTable(rows){
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
-                newCell.textContent = rows[row].unit;
+                var units;
+                if (rows[row].lbs == true) {
+                    units = "lbs"
+                } else {
+                    units = "kg"
+                }
+                newCell.textContent = units;
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
