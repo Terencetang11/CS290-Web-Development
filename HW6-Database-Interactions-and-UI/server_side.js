@@ -26,8 +26,8 @@ app.get('/',function(req,res,next){
       "weight INT," +
       "due DATE," +
       "unit VARCHAR(255))";
-      mysql.pool.query(createString, function(err, fields){
-        context.results = JSON.stringify(fields);
+      mysql.pool.query(createString, function(err, results){
+        context.results = JSON.stringify(results);
         res.render('home',context);
       })
     })
