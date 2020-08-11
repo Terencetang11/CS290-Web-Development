@@ -127,7 +127,6 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "update";
-                newButton.id = rowNode.id
                 newButton.onclick = deleteRow(rowNode.id);
                 
                 var newCell = document.createElement("td");
@@ -137,7 +136,6 @@ function buildTable(rows){
                 newCell.appendChild(newButton);
                 newButton.type = "button";
                 newButton.value = "delete";
-                newButton.id = rowNode.id
                 newButton.onclick = deleteRow(rowNode.id);
         }
         
