@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 function bindButtons(){
     document.getElementById('exercise_submit').addEventListener('click', function(event){
         var req = new XMLHttpRequest();
-        var payload = 'type="insert"'
-        payload += "&name=" + document.getElementById('name_input').value
-        payload += "&reps=" + document.getElementById('reps_input').value
-        payload += "&weight=" + document.getElementById('weight_input').value
-        payload += "&date=" + document.getElementById('date_input').value
-        payload += "&unit=" + document.getElementById('unit_input').value
+        var payload = 'http://flip3.engr.oregonstate.edu:11179/?type="insert"';
+        payload += "&name=" + document.getElementById('name_input').value;
+        payload += "&reps=" + document.getElementById('reps_input').value;
+        payload += "&weight=" + document.getElementById('weight_input').value;
+        payload += "&date=" + document.getElementById('date_input').value;
+        payload += "&unit=" + document.getElementById('unit_input').value;
 
         req.open("GET", payload, true);
+        console.log(payload);
         req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
                 var response = JSON.parse(req.responseText);
