@@ -22,11 +22,11 @@ function bindButtons(){
                 document.getElementById("rowsP").textContent = response.rows
                 document.getElementById("testP").textContent = response.test
 
-                document.getElementById('name_input').textContent = null;
-                document.getElementById('reps_input').textContent = null;
-                document.getElementById('weight_input').textContent = null;
-                document.getElementById('date_input').textContent = null;
-                document.getElementById('unit_input').textContent = null;
+                document.getElementById('name_input').value = null;
+                document.getElementById('reps_input').value = null;
+                document.getElementById('weight_input').value = null;
+                document.getElementById('date_input').value = null;
+                document.getElementById('unit_input').value = null;
                 
 
                 // document.getElementById('city').textContent = response.name;
