@@ -46,6 +46,7 @@ app.get('/',function(req,res,next){
           next(err);
           return;
         }
+        context.results = "Row inserted";
         context.rows = JSON.stringify(rows);
         res.type('application/json');
         res.send(context);
@@ -66,6 +67,7 @@ app.get('/',function(req,res,next){
           next(err);
           return;
         }
+        context.results = "Row deleted";
         context.rows = JSON.stringify(rows);
         res.type('application/json')
         res.send(context);
@@ -96,6 +98,7 @@ app.get('/',function(req,res,next){
               next(err);
               return;
             }
+            context.results = "Row updated";
             context.rows = JSON.stringify(rows);
             res.type('application/json')
             res.send(context);

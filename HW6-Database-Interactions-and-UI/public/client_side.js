@@ -30,6 +30,7 @@ function bindButtons(){
                 document.getElementById('date_input').value = null;
                 
                 // builds table from latest sql db updates
+                document.getElementById('resultsP').textContent = response.results;
                 buildTable(JSON.parse(response.rows));
                 
             } else {
@@ -64,7 +65,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
         req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
                 var response = JSON.parse(req.responseText);
-                // builds table from latest sql db updates           
+                // builds table from latest sql db updates  
+                document.getElementById('resultsP').textContent = response.results;        
                 buildTable(JSON.parse(response.rows));
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -114,7 +116,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
             req.addEventListener('load',function(){
                 if(req.status >= 200 && req.status < 400){
                     var response = JSON.parse(req.responseText);
-                    // builds table from latest sql db updates           
+                    // builds table from latest sql db updates
+                    document.getElementById('resultsP').textContent = response.results;          
                     buildTable(JSON.parse(response.rows));
                 } else {
                     console.log("Error in network request: " + req.statusText);
