@@ -73,7 +73,7 @@ app.get('/',function(req,res,next){
     });
   } 
   else if (req.query.type == "delete"){
-    mysql.pool.query("DELETE FROM todo WHERE id=?", [req.query.id], function(err, result){
+    mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function(err, result){
       if(err){
         next(err);
         return;
