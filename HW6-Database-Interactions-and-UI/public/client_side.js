@@ -287,7 +287,7 @@ document.getElementById('reset_table').addEventListener('click', function(event)
             
             // builds table from latest sql db updates
             document.getElementById('resultsP').textContent = response.results;
-            
+            buildTable([]);
         } else {
             console.log("Error in network request: " + req.statusText);
         }});

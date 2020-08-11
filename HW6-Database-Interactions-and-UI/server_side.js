@@ -106,8 +106,6 @@ app.get('/',function(req,res,next){
       }
     });
   } else {
-    context.test = "error occured"
-    console.log("error occurred")
     res.send(context);
   }
 });
@@ -125,9 +123,8 @@ app.get('/reset-table',function(req,res,next){
     "date DATE," +
     "lbs BOOLEAN)";
     mysql.pool.query(createString, function(err, results){
-      context.results = "table reset";
-      res.type('application/json')
-      res.send(context);
+      context.results = "Table reset";
+      res.render('home',context);
     })
   });
 });
