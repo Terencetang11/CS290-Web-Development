@@ -85,14 +85,19 @@ document.getElementById('results_output').addEventListener('click', function(eve
         document.getElementById("updates_submit").removeAttribute("hidden")
 
         var cell = target.parentNode.parentNode.firstchild
+        console.log(cell)
         document.getElementById('name_input').value = cell.value
         cell = cell.nextSibling
+        console.log(cell)
         document.getElementById('reps_input').value = cell.value
         cell = cell.nextSibling
+        console.log(cell)
         document.getElementById('weight_input').value = cell.value
         cell = cell.nextSibling
+        console.log(cell)
         document.getElementById('date_input').value = cell.value
         cell = cell.nextSibling
+        console.log(cell)
         if (cell.textContent == "lbs") {
             document.getElementById('lbs').setAttribute("checked");
         } else {
