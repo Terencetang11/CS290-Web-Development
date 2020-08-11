@@ -64,6 +64,12 @@ document.getElementById('results_output').addEventListener('click', function(eve
                 
                 buildTable(JSON.parse(response.rows));
                 console.log("table built")
+            } else {
+                console.log("Error in network request: " + req.statusText);
+            }
+        });
+        req.send(null);
+        event.preventDefault();
         
         deleteRow(target); // delete table row
 
