@@ -65,11 +65,11 @@ app.get('/',function(req,res,next){
         console.log(rows);
         context.rows = JSON.stringify(rows);
         context.fields = JSON.stringify(fields);
+        console.log("context output")
+        console.log(context)
+        res.type('application/json')
+        res.send(context);
       })
-      console.log("context output")
-      console.log(context)
-      res.type('application/json')
-      res.send(context);
     });
   } else {
     context.test = "error occured"
