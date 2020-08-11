@@ -286,7 +286,7 @@ document.getElementById('reset_table').addEventListener('click', function(event)
             document.getElementById('date_input').value = null;
             
             // builds table from latest sql db updates
-            buildTable(JSON.parse(response.rows));
+            document.getElementById('resultsP').textContent = response.results;
             
         } else {
             console.log("Error in network request: " + req.statusText);

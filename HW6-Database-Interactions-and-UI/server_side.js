@@ -124,8 +124,8 @@ app.get('/reset-table',function(req,res,next){
     "weight INT," +
     "date DATE," +
     "lbs BOOLEAN)";
-    mysql.pool.query(createString, function(err){
-      context.rows = JSON.stringify(rows);
+    mysql.pool.query(createString, function(err, results){
+      context.results = "table reset";
       res.type('application/json')
       res.send(context);
     })
