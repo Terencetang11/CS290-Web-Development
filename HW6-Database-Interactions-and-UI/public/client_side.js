@@ -29,6 +29,7 @@ function bindButtons(){
                 document.getElementById('unit_input').value = null;
                 
                 buildTable(JSON.parse(response.rows));
+                console.log("table built")
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
