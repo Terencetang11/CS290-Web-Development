@@ -115,13 +115,13 @@ function buildTable(rows){
                 var newButton = document.createElement("input");
                 newButton.type = "button"
                 newButton.value = "update";
-                newButton.onclick = "deleteRow(table_results,this)"
+                newButton.onclick = deleteRow(table_results,this)
                 rowNode.appendChild(newButton)
 
                 var newButton = document.createElement("input");
                 newButton.type = "button"
                 newButton.value = "delete";
-                newButton.onclick = "deleteRow(table_results,this)"
+                newButton.onclick = deleteRow(table_results,this)
                 rowNode.appendChild(newButton)
                 
               
