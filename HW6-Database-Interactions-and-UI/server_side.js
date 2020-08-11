@@ -53,6 +53,7 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
+      console.log("new row added")
       context.results = "Inserted id " + results.insertId;
       context.test = "new row added"
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
@@ -60,6 +61,8 @@ app.get('/',function(req,res,next){
           next(err);
           return;
         }
+        console.log("select query ran");
+        console.log(rows);
         context.rows = JSON.stringify(rows);
         context.fields = JSON.stringify(fields);
       })
