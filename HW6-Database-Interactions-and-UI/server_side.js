@@ -17,7 +17,7 @@ var mysql = require('./dbcon.js');
 app.get('/',function(req,res,next){
   var context = {};
   if (!req.query.sql){
-    mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
+    mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
       // SQL query for creating a new table
       var createString = "CREATE TABLE exercise(" +
       "id INT PRIMARY KEY AUTO_INCREMENT," +
