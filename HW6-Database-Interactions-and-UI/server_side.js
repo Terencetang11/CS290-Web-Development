@@ -26,12 +26,14 @@ app.get('/',function(req,res,next){
       "weight INT," +
       "due DATE," +
       "unit VARCHAR(255))";
-      mysql.pool.query(createString, function(err, results){
+      mysql.pool.query(createString, function(err, results, rows, fields){
         if(err){
           next(err);
           return;
         }
         context.results = JSON.stringify(results);
+        context.fields = JSON.stringify(fields);
+        context.rows = JSON.stringify(rows);
         context.test = "new table created"
         res.render('home',context);
       });
