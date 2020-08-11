@@ -39,7 +39,7 @@ function bindButtons(){
     })
 }
 
-document.getElementById("results_table").addEventListener('click', function(event) {
+document.getElementById('results_table').addEventListener('click', function(event){
     let target = event.target; // where was the click?
     console.log("deleted")
 
