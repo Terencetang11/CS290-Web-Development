@@ -1,0 +1,35 @@
+<h1>My Exercise Tracker:</h1>
+
+<d id="exercise_form">
+    <form id="input_form">
+        <fieldset>
+            <legend>Input your exercise here!</legend>
+            <p><strong>Instructions:</strong> Please input the name, # of reps, weight, date, and units for the exercises you'd like to track!</p>
+            <label>
+                Exercise Name: <input type="text" name="name" id="name_input">
+            </label>
+            <label>
+                Reps: <input type="number" name="reps" id="reps_input">
+            </label>
+            <label>
+                Weight: <input type="number" name="weight" id="weight_input">
+            </label>
+            <label>
+                Date: <input type="text" name="date" id="date_input">
+            </label>
+            <label>
+                Units: <input type="text" name="unit" id="unit_input">
+            </label>
+            <br>
+            <br>
+            <input type="submit" id="exercise_submit">
+        </fieldset>
+    </form>
+</d>
+<d id="results_table">
+    <p>{{results}}</p>
+    <!-- dom manipulation for dynamic table building, depending on # of rows returned -->
+    
+</d>
+
+<script src="databaseInteraction.js"></script>
