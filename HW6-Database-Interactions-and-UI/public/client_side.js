@@ -51,7 +51,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
         document.getElementById('reps_input').value = null;
         document.getElementById('weight_input').value = null;
         document.getElementById('date_input').value = null; 
-        document.getElementById("exercise_submit").setAttribute("hidden", false)
+        document.getElementById("exercise_submit").removeAttribute("hidden")
         document.getElementById("updates_submit").setAttribute("hidden", true)
 
         // update database for removal of record
@@ -293,4 +293,7 @@ document.getElementById('reset_table').addEventListener('click', function(event)
         }});
     req.send(null);
     event.preventDefault();
+
+    document.getElementById("exercise_submit").remove("hidden")
+    document.getElementById("updates_submit").setAttribute("hidden", true)
 })
