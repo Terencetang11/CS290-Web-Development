@@ -41,9 +41,10 @@ function bindButtons(){
 
 function buildTable(rows){
     // Create Table Node
-    var table = document.getElementById("results_table")
-    table = document.createElement("table");
-    table.id = "results_table"
+    element = document.getElementById("results_table");
+    element.parentNode.removeChild(element);
+    var table = document.createElement("table");
+    document.getElementById("results_output").appendChild(table);
 
     // Create Caption Node
     var captionNode = document.createElement("caption");
