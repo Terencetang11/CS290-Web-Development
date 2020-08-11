@@ -39,9 +39,9 @@ function bindButtons(){
     })
 }  
 
-function deleteRow(tableID,currentRow) {
+function deleteRow(table,currentRow) {
     try {
-        var table = document.getElementById(tableID);
+        //var table = document.getElementById(tableID);
         var rowCount = table.rows.length;
         for (var i = 0; i < rowCount; i++) {
             var row = table.rows[i];
@@ -140,14 +140,17 @@ function buildTable(rows){
                 var newButton = document.createElement("input");
                 newButton.type = "button";
                 newButton.value = "update";
-                newButton.onclick = deleteRow(table_results,this);
-                rowNode.appendChild(newButton);
+                newButton.onclick = deleteRow(this.parentNode.parentNode.parentNode.parentNode,this);
+                newCell.appendChild(newButton);
+
+                var newCell = document.createElement("td");
+                rowNode.appendChild(newCell);
 
                 var newButton = document.createElement("input");
                 newButton.type = "button";
                 newButton.value = "delete";
                 newButton.onclick = deleteRow(table_results,this);
-                rowNode.appendChild(newButton);
+                newCell.appendChild(newButton);
                 
               
         }
