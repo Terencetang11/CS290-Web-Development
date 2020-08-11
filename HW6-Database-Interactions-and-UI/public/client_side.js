@@ -70,7 +70,7 @@ function buildTable(rows){
     element.parentNode.removeChild(element);
     var table = document.createElement("table");
     table.id = "results_table"
-    document.getElementById("results_output").appendChild(table);
+    document.appendChild(table);
 
     // Create Caption Node
     var captionNode = document.createElement("caption");
