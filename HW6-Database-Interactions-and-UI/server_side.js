@@ -19,7 +19,7 @@ app.get('/',function(req,res,next){
   if (!req.query.sql){
     mysql.pool.query(
     // SQL query for creating a new table
-    "CREATE TABLE IF NOT EXIST exercise(" +
+    "CREATE TABLE exercise(" +
     "id INT PRIMARY KEY AUTO_INCREMENT," +
     "name VARCHAR(255) NOT NULL," +
     "done BOOLEAN," +
