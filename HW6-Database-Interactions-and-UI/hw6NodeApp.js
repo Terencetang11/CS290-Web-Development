@@ -42,7 +42,7 @@ app.get('/',function(req,res,next){
     
     
     
-    , [req.query.c], function(err, result){
+    [req.query.c], function(err, result){
     if(err){
       next(err);
       return;
