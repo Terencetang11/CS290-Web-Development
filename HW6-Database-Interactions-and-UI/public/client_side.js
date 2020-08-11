@@ -115,7 +115,7 @@ function buildTable(rows){
                 var newButton = document.createElement("button")
                 newButton.textContent = "Delete"
                 newButton.onclick = "deleteRow(table_results,this)"
-
+                rowNode.appendChild(newButton)
                 
               
         }
