@@ -16,15 +16,16 @@ var mysql = require('./dbcon.js');
 
 app.get('/',function(req,res,next){
   var context = {};
+  // on arrive to homepage
   if (!req.query.sql){
     mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
       // SQL query for creating a new table
       var createString = "CREATE TABLE exercise(" +
       "id INT PRIMARY KEY AUTO_INCREMENT," +
       "name VARCHAR(255) NOT NULL," +
-      "rep INT," +
+      "reps INT," +
       "weight INT," +
-      "due DATE," +
+      "date DATE," +
       "unit VARCHAR(255))";
       mysql.pool.query(createString, function(err, results, rows, fields){
         if(err){
@@ -39,76 +40,23 @@ app.get('/',function(req,res,next){
       });
     });
   }
-  else if (req.query.sql.type == "insert"){
-    
+  // when inserting new exercise
+  else if (req.query.type == "insert"){
+    mysql.pool.query("INSERT INTO exercise (`name`, 'reps', 'weight', 'date', 'unit' ) VALUES (?)"
+    , [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit ]
+    , function(err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = "Inserted id " + result.insertId;
+      context.rows = JSON.stringify(rows);
+      res.send(context);
+    });
   }
-});
+  // when deleting a record
 
-app.get('/delete',function(req,res,next){
-  var context = {};
-  mysql.pool.query("DELETE FROM todo WHERE id=?", [req.query.id], function(err, result){
-    if(err){
-      next(err);
-      return;
-    }
-    context.results = "Deleted " + result.changedRows + " rows.";
-    res.render('home',context);
-  });
-});
-
-
-///simple-update?id=2&name=The+Task&done=false&due=2015-12-5
-app.get('/simple-update',function(req,res,next){
-  var context = {};
-  mysql.pool.query("UPDATE todo SET name=?, done=?, due=? WHERE id=? ",
-    [req.query.name, req.query.done, req.query.due, req.query.id],
-    function(err, result){
-    if(err){
-      next(err);
-      return;
-    }
-    context.results = "Updated " + result.changedRows + " rows.";
-    res.render('home',context);
-  });
-});
-
-///safe-update?id=1&name=The+Task&done=false
-app.get('/safe-update',function(req,res,next){
-  var context = {};
-  mysql.pool.query("SELECT * FROM todo WHERE id=?", [req.query.id], function(err, result){
-    if(err){
-      next(err);
-      return;
-    }
-    if(result.length == 1){
-      var curVals = result[0];
-      mysql.pool.query("UPDATE todo SET name=?, done=?, due=? WHERE id=? ",
-        [req.query.name || curVals.name, req.query.done || curVals.done, req.query.due || curVals.due, req.query.id],
-        function(err, result){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = "Updated " + result.changedRows + " rows.";
-        res.render('home',context);
-      });
-    }
-  });
-});
-
-app.get('/reset-table',function(req,res,next){
-  var context = {};
-  mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
-    var createString = "CREATE TABLE todo(" +
-    "id INT PRIMARY KEY AUTO_INCREMENT," +
-    "name VARCHAR(255) NOT NULL," +
-    "done BOOLEAN," +
-    "due DATE)";
-    mysql.pool.query(createString, function(err){
-      context.results = "Table reset";
-      res.render('home',context);
-    })
-  });
+  // when editing a record
 });
 
 app.use(function(req,res){
