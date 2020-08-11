@@ -9,7 +9,13 @@ function bindButtons(){
         payload += "&reps=" + document.getElementById('reps_input').value;
         payload += "&weight=" + document.getElementById('weight_input').value;
         payload += "&date=" + document.getElementById('date_input').value;
-        payload += "&lbs=" + document.getElementById('lbs').checked;
+        var units;
+        if (document.getElementById('lbs').checked){
+            units = 1;
+        } else {
+            units = 0;
+        }
+        payload += "&lbs=" + units;
 
         req.open("GET", payload, true);
         console.log(payload);
@@ -75,7 +81,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
     
     // if update button clicked
     } else if (target.name == 'update') {
-        document.getElementById("exercise_submit").setAttribute("hidden")
+        document.getElementById("exercise_submit").setAttribute("hidden", true)
         document.getElementById("updates_submit").removeAttribute("hidden")
 
         var cell = target.parentNode.parentNode.firstchild
@@ -93,7 +99,7 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked");
         }
         
-        document.getElementById("updates_submit").setAttribute("hidden")
+        document.getElementById("updates_submit").setAttribute("hidden", true)
         document.getElementById("exercise_submit").removeAttribute("hidden")
         
         
@@ -223,7 +229,7 @@ function buildTable(rows){
                 var newCell = document.createElement("td");
                 newCell.name = "units";
                 var units;
-                if (rows[row].lbs == true) {
+                if (rows[row].lbs) {
                     units = "lbs"
                 } else {
                     units = "kg"
