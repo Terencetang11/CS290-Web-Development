@@ -36,12 +36,14 @@ app.get('/',function(req,res,next){
         context.fields = JSON.stringify(fields);
         context.rows = JSON.stringify(rows);
         context.test = "new table created"
+        console.log("new table made")
         res.render('home',context);
       });
     });
   }
   // when inserting new exercise
   else if (req.query.type == "insert"){
+    console.log("new insert occurred")
     context.test = "new row added"
     res.render('home',context);
     // mysql.pool.query("INSERT INTO exercise (`name`, 'reps', 'weight', 'date', 'unit' ) VALUES (?)"
@@ -58,6 +60,7 @@ app.get('/',function(req,res,next){
     // });
   } else {
     context.test = "error occured"
+    console.log("error occurred")
     res.send(context);
   }
   // when deleting a record

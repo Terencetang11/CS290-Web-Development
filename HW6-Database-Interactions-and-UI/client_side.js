@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 function bindButtons(){
     document.getElementById('exercise_submit').addEventListener('click', function(event){
         var req = new XMLHttpRequest();
-        var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=insert';
+        var payload = 'http://flip3.engr.oregonstate.edu:11179/?type="insert"';
         payload += "&name=" + document.getElementById('name_input').value;
         payload += "&reps=" + document.getElementById('reps_input').value;
         payload += "&weight=" + document.getElementById('weight_input').value;
@@ -32,6 +32,6 @@ function bindButtons(){
                 console.log("Error in network request: " + req.statusText);
             }});
         req.send(null);
-        event.preventDefault();
+        //event.preventDefault();
     })
 }  
