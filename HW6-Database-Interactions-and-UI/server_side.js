@@ -21,6 +21,7 @@ app.get('/',function(req,res,next){
   var context = {};
   // on arrive to homepage, checks if a table exists; resets table otherwise
   if (!req.query.type){
+    // query selects all data from db 
     mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
       if(err){
         next(err);
@@ -29,27 +30,10 @@ app.get('/',function(req,res,next){
       context.rows = JSON.stringify(rows);
       res.render('home', context);
     })
-    
-    // mysql.pool.query("DROP TABLE IF EXISTS exercise", function(err){
-    //   // SQL query for creating a new table
-    //   var createString = "CREATE TABLE exercise(" +
-    //   "id INT PRIMARY KEY AUTO_INCREMENT," +
-    //   "name VARCHAR(255) NOT NULL," +
-    //   "reps INT," +
-    //   "weight INT," +
-    //   "date DATE," +
-    //   "lbs BOOLEAN)";
-    //   mysql.pool.query(createString, function(err, results, rows, fields){
-    //     if(err){
-    //       next(err);
-    //       return;
-    //     }
-    //     res.render('home',context);
-    //   });
-    // });
   }
   // when inserting new exercise
   else if (req.query.type == "insert"){
+    // query inserts new record into db 
     mysql.pool.query("INSERT INTO exercise SET ?" //(`name`, 'reps', 'weight', 'date', 'unit') VALUES (?)"
     , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, date:req.query.date, lbs:req.query.lbs}
     , function(err, results){
@@ -57,6 +41,7 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
+      // query selects all data from db for table refresh
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
           next(err);
@@ -70,11 +55,13 @@ app.get('/',function(req,res,next){
   }
   // when deleting an exercise
   else if (req.query.type == "delete"){
+    // query deletes identified record from db 
     mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function(err, result){
       if(err){
         next(err);
         return;
       }
+      // query selects all data from db for table refresh
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
           next(err);
@@ -89,6 +76,7 @@ app.get('/',function(req,res,next){
   }
   // when updating an existing exercise
   else if (req.query.type == "update"){
+    // query selects specified record from db based on record id 
     mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function(err, result){
       if(err){
         next(err);
@@ -96,6 +84,7 @@ app.get('/',function(req,res,next){
       }
       if(result.length == 1){
         var curVals = result[0];
+        // query updates select records' values in db 
         mysql.pool.query("UPDATE exercise SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
           [req.query.name || curVals.name, req.query.reps || curVals.reps, req.query.weight || curVals.weight, req.query.date || curVals.date, req.query.lbs || curVals.lbs, req.query.id],
           function(err, result){
@@ -103,6 +92,7 @@ app.get('/',function(req,res,next){
             next(err);
             return;
           }
+          // query selects all data from db for table update
           mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
             if(err){
               next(err);
@@ -122,8 +112,10 @@ app.get('/',function(req,res,next){
   }
 });
 
+// for a reset table
 app.get('/reset-table',function(req,res,next){
   var context = {};
+  // query recreates db exercise table
   mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
     var createString = "CREATE TABLE exercise(" +
     "id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -133,8 +125,9 @@ app.get('/reset-table',function(req,res,next){
     "date DATE," +
     "lbs BOOLEAN)";
     mysql.pool.query(createString, function(err){
-      context.results = "Table reset";
-      res.render('home',context);
+      context.rows = JSON.stringify(rows);
+      res.type('application/json')
+      res.send(context);
     })
   });
 });

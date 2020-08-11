@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', bindButtons);
 
 function bindButtons(){
-    console.log("dom loaded and checking")
     document.getElementById('exercise_submit').addEventListener('click', function(event){
         var req = new XMLHttpRequest();
         var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=insert';
@@ -84,19 +83,14 @@ document.getElementById('results_output').addEventListener('click', function(eve
         
         // sets current target records values into the update forms fields
         var cell = target.parentNode.parentNode.firstChild
-        console.log(cell)
         document.getElementById('name_input').value = cell.value
         cell = cell.nextSibling
-        console.log(cell)
         document.getElementById('reps_input').value = cell.value
         cell = cell.nextSibling
-        console.log(cell)
         document.getElementById('weight_input').value = cell.value
         cell = cell.nextSibling
-        console.log(cell)
         document.getElementById('date_input').value = cell.value
         cell = cell.nextSibling
-        console.log(cell)
         if (cell.textContent == "lbs") {
             document.getElementById('lbs').setAttribute("checked", true);
         } else {
@@ -275,4 +269,28 @@ function generateBorder(tagName){
     }
 }
 
-
+// for reset table button press - sends get reqeuest to reset-table page but does not load anything
+document.getElementById('reset_table').addEventListener('click', function(event){
+    var req = new XMLHttpRequest();
+    var payload = 'http://flip3.engr.oregonstate.edu:11179/reset-table'
+    req.open("GET", payload, true);
+    // set up listener prior to send to make aync call 
+    req.addEventListener('load',function(){
+        if(req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            
+            // resets input form values
+            document.getElementById('name_input').value = null;
+            document.getElementById('reps_input').value = null;
+            document.getElementById('weight_input').value = null;
+            document.getElementById('date_input').value = null;
+            
+            // builds table from latest sql db updates
+            buildTable(JSON.parse(response.rows));
+            
+        } else {
+            console.log("Error in network request: " + req.statusText);
+        }});
+    req.send(null);
+    event.preventDefault();
+})
