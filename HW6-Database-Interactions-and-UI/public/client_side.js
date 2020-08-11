@@ -28,13 +28,9 @@ function bindButtons(){
                 document.getElementById('date_input').value = null;
                 document.getElementById('unit_input').value = null;
                 
+                var testRows = [{"id":1,"name":"trapp pulls","reps":1000,"weight":100,"date":"2020-08-08T07:00:00.000Z","unit":"lbs"}]
 
-                // document.getElementById('city').textContent = response.name;
-                // document.getElementById('country').textContent = response.sys.country;
-                // document.getElementById('currentWeather').textContent = response.main.temp;
-                // document.getElementById('currentTemp').textContent = response.main.temp;
-                // document.getElementById('feelsLike').textContent = response.main.feels_like;
-                // document.getElementById('humidity').textContent = response.main.humidity;
+                buildTable(testRows)
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -43,3 +39,86 @@ function bindButtons(){
         event.preventDefault();
     })
 }  
+
+function buildTable(rows){
+    // Create Table Node
+    var table = document.createElement("table");
+    document.getElementById("results_table").appendChild(table);
+
+    // Create Caption Node
+    var captionNode = document.createElement("caption");
+    captionNode.textContent = "Tracked Exercises";
+    table.appendChild(captionNode);
+
+    // Create thead node
+    var headerNode = document.createElement("thead");
+    table.appendChild(headerNode);
+        // Create TR
+        var rowNode = document.createElement("tr");
+        headerNode.appendChild(rowNode);
+            // Create Header Cells
+            var newCell = document.createElement("th");
+            newCell.textContent = "Name";
+            headerNode.appendChild(newCell);
+
+            var newCell = document.createElement("th");
+            newCell.textContent = "Reps";
+            headerNode.appendChild(newCell);
+
+            var newCell = document.createElement("th");
+            newCell.textContent = "Weight";
+            headerNode.appendChild(newCell);
+
+            var newCell = document.createElement("th");
+            newCell.textContent = "Date";
+            headerNode.appendChild(newCell);
+
+            var newCell = document.createElement("th");
+            newCell.textContent = "Units";
+            headerNode.appendChild(newCell);
+
+    // Create tbody node
+    var bodyNode = document.createElement("tbody");
+    table.appendChild(bodyNode);
+        // Creates each rows
+        for (var row = 0; row < rows.length; row++){
+            // Create TR node
+            var rowNode = document.createElement("tr");
+            rowNode.id = rows[row].id;
+            bodyNode.appendChild(rowNode);
+                // Create Table Cells
+                var newCell = document.createElement("td");
+                newCell.textContent = rows[row].name;
+                rowNode.appendChild(newCell);
+
+                var newCell = document.createElement("td");
+                newCell.textContent = rows[row].reps;
+                rowNode.appendChild(newCell);
+
+                var newCell = document.createElement("td");
+                newCell.textContent = rows[row].weight;
+                rowNode.appendChild(newCell);
+
+                var newCell = document.createElement("td");
+                newCell.textContent = rows[row].date;
+                rowNode.appendChild(newCell);
+
+                var newCell = document.createElement("td");
+                newCell.textContent = rows[row].unit;
+                rowNode.appendChild(newCell);
+                
+              
+        }
+        
+    generateBorder("table")
+    generateBorder("th")
+    generateBorder("td")
+}
+
+// Style table
+function generateBorder(tagName){
+    var elements = document.getElementsByTagName(tagName)
+    for(var i = elements.length - 1; i >= 0; i--){
+        elements[i].style.borderStyle = "solid";
+    }
+}
