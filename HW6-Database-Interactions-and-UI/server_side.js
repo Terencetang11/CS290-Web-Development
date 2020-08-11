@@ -27,10 +27,15 @@ app.get('/',function(req,res,next){
       "due DATE," +
       "unit VARCHAR(255))";
       mysql.pool.query(createString, function(err, results){
+        if(err){
+          next(err);
+          return;
+        }
         context.results = JSON.stringify(results);
+        context.test = "new table created"
         res.render('home',context);
-      })
-    })
+      });
+    });
   }
   else if (req.query.sql.type == "insert"){
     
