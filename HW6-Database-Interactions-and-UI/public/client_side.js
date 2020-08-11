@@ -17,6 +17,7 @@ function bindButtons(){
                 console.log("response received:")
                 console.log(req.responseText)
                 var response = JSON.parse(req.responseText);
+                console.log(response.rows)
                 // // do something with the response
                 document.getElementById("resultsP").textContent = response.results
                 document.getElementById("rowsP").textContent = response.rows
@@ -40,8 +41,9 @@ function bindButtons(){
 
 function buildTable(rows){
     // Create Table Node
-    var table = document.createElement("table");
-    document.getElementById("results_table").appendChild(table);
+    var table = document.getElementById("results_table")
+    table = document.createElement("table");
+    table.id = "results_table"
 
     // Create Caption Node
     var captionNode = document.createElement("caption");
