@@ -14,11 +14,10 @@ function bindButtons(){
         console.log(payload);
         req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
-                console.log("response received:")
-                console.log(req.responseText)
+                console.log("response received:")//delete this
                 var response = JSON.parse(req.responseText);
-                console.log(response.rows)
-                // // do something with the response
+                
+                // do something with the response
                 document.getElementById("resultsP").textContent = response.results
                 document.getElementById("rowsP").textContent = response.rows
                 document.getElementById("testP").textContent = response.test
@@ -37,15 +36,28 @@ function bindButtons(){
         req.send(null);
         event.preventDefault();
     })
+
+    document.getElementById('results_table').addEventListener('click', function(event){
+        let target = event.target; // where was the click?
+        console.log("deleted");
+        
+    
+        if (target.name != "delete") return; // not on TD? Then we're not interested
+        deleteRow(target); // delete row
+    });
 }
 
-document.getElementById('results_table').addEventListener('click', function(event){
-    let target = event.target; // where was the click?
-    console.log("deleted")
 
-    if (target.name != "delete") return; // not on TD? Then we're not interested
-    deleteRow(target); // highlight it
-});
+
+function deleteRow(button) {
+    try {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row)
+    } catch (e) {
+        alert(e);
+    }
+    //getValues();
+}
 
 function buildTable(rows){
     // Create new Table Node on each query pull
@@ -146,16 +158,6 @@ function generateBorder(tagName){
     for(var i = elements.length - 1; i >= 0; i--){
         elements[i].style.borderStyle = "solid";
     }
-}
-
-function deleteRow(button) {
-    try {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row)
-    } catch (e) {
-        alert(e);
-    }
-    //getValues();
 }
 
 
