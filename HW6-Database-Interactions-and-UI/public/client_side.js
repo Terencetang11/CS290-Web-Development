@@ -85,7 +85,8 @@ document.getElementById('results_output').addEventListener('click', function(eve
         // updates original submission form to be used as update form
         document.getElementById("exercise_submit").setAttribute("hidden", true)
         document.getElementById("updates_submit").removeAttribute("hidden")
-        
+        document.getElementById("updates_submit").value = target.id
+
         // sets current target records values into the update forms fields
         var cell = target.parentNode.parentNode.firstChild
         document.getElementById('name_input').value = cell.value
@@ -102,50 +103,49 @@ document.getElementById('results_output').addEventListener('click', function(eve
             document.getElementById('kg').setAttribute("checked", true);
         }
         
-        // kicks-off listener for the 'submit update' button press
-        document.getElementById('updates_submit').addEventListener('click', function(event){
-            console.log(target);
-            console.log(target.id);
-            console.log(targetid);
-            // requests a record update given a target record id with newly updated values
-            var req = new XMLHttpRequest();
-            var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
-            payload += "&id=" + target.id;
-            payload += "&name=" + document.getElementById('name_input').value;
-            payload += "&reps=" + document.getElementById('reps_input').value;
-            payload += "&weight=" + document.getElementById('weight_input').value;
-            payload += "&date=" + document.getElementById('date_input').value;
-            payload += "&lbs=" + document.getElementById('lbs').checked;
-            
-            req.open("GET", payload, true);
-            // set up listener prior to send to make aync call 
-            req.addEventListener('load',function(){
-                if(req.status >= 200 && req.status < 400){
-                    var response = JSON.parse(req.responseText);
-                    // builds table from latest sql db updates
-                    document.getElementById('resultsP').textContent = response.results;          
-                    buildTable(JSON.parse(response.rows));
-                } else {
-                    console.log("Error in network request: " + req.statusText);
-                }
-            });
-            
-            req.send(null);
-            event.preventDefault();
-
-            // once update is complete, swaps update form back into submission form
-            document.getElementById('name_input').value = null;
-            document.getElementById('reps_input').value = null;
-            document.getElementById('weight_input').value = null;
-            document.getElementById('date_input').value = null;            
-            document.getElementById("exercise_submit").removeAttribute("hidden")
-            document.getElementById("updates_submit").setAttribute("hidden", true)
-        })
+        
         
     } else {
         return;
     }
 });
+
+// kicks-off listener for the 'submit update' button press
+document.getElementById('updates_submit').addEventListener('click', function(event){
+    // requests a record update given a target record id with newly updated values
+    var req = new XMLHttpRequest();
+    var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=update';
+    payload += "&id=" + document.getElementById('updates_submit').value;
+    payload += "&name=" + document.getElementById('name_input').value;
+    payload += "&reps=" + document.getElementById('reps_input').value;
+    payload += "&weight=" + document.getElementById('weight_input').value;
+    payload += "&date=" + document.getElementById('date_input').value;
+    payload += "&lbs=" + document.getElementById('lbs').checked;
+    
+    req.open("GET", payload, true);
+    // set up listener prior to send to make aync call 
+    req.addEventListener('load',function(){
+        if(req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            // builds table from latest sql db updates
+            document.getElementById('resultsP').textContent = response.results;          
+            buildTable(JSON.parse(response.rows));
+        } else {
+            console.log("Error in network request: " + req.statusText);
+        }
+    });
+    
+    req.send(null);
+    event.preventDefault();
+
+    // once update is complete, swaps update form back into submission form
+    document.getElementById('name_input').value = null;
+    document.getElementById('reps_input').value = null;
+    document.getElementById('weight_input').value = null;
+    document.getElementById('date_input').value = null;            
+    document.getElementById("exercise_submit").removeAttribute("hidden")
+    document.getElementById("updates_submit").setAttribute("hidden", true)
+})
 
 
 // used for deleting row from table UI
