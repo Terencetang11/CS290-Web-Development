@@ -100,7 +100,7 @@ app.get('/',function(req,res,next){
   }
   // when updating an existing exercise
   else if (req.query.type == "update"){
-    mysql.pool.query("SELECT * FROM todo WHERE id=?", [req.query.id], function(err, result){
+    mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function(err, result){
       if(err){
         next(err);
         return;
@@ -110,7 +110,7 @@ app.get('/',function(req,res,next){
       context.test = "row updated"
       if(result.length == 1){
         var curVals = result[0];
-        mysql.pool.query("UPDATE todo SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
+        mysql.pool.query("UPDATE exercise SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
           [req.query.name || curVals.name, req.query.reps || curVals.reps, req.query.weight || curVals.weight, req.query.date || curVals.date, req.query.lbs || curVals.lbs, req.query.id],
           function(err, result){
           if(err){
