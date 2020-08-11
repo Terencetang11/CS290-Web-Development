@@ -40,10 +40,11 @@ function bindButtons(){
 }  
 
 function buildTable(rows){
-    // Create Table Node
+    // Create new Table Node on each query pull
     element = document.getElementById("results_table");
     element.parentNode.removeChild(element);
     var table = document.createElement("table");
+    table.id = "results_table"
     document.getElementById("results_output").appendChild(table);
 
     // Create Caption Node
