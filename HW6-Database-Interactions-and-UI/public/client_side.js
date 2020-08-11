@@ -43,7 +43,8 @@ function bindButtons(){
 function bindDeletes(){
     var deletes = document.getElementsByName("delete");
     for (var button in deletes){
-        button.addEventListener('click',deletRow(button.id))
+        button.addEventListener('click',deleteRow(button.id))
+        console.log("added delete")
     }
 }
 
