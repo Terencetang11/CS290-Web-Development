@@ -30,7 +30,7 @@ function bindButtons(){
                 document.getElementById('unit_input').value = null;
                 
                 testRows = [{"id":1,"name":"test1","reps":0,"weight":0,"date":"0000-00-00","unit":""},{"id":2,"name":"test 2","reps":0,"weight":0,"date":"0000-00-00","unit":""},{"id":3,"name":"test 3","reps":0,"weight":0,"date":"0000-00-00","unit":""}]
-
+                console.log(testRows)
                 buildTable(testRows)
                 
             } else {
