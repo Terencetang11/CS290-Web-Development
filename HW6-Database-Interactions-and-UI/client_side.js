@@ -30,6 +30,8 @@ function bindButtons(){
                 // do something with the response
                 document.getElementById("resultsP").textContet = response.results
                 document.getElementById("rowsP").textContet = response.rows
+                document.getElementById("testP").textContet = response.test
+                
 
                 // document.getElementById('city').textContent = response.name;
                 // document.getElementById('country').textContent = response.sys.country;

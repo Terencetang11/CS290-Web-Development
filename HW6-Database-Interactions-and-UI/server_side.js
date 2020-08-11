@@ -51,6 +51,7 @@ app.get('/',function(req,res,next){
       }
       context.results = "Inserted id " + result.insertId;
       context.rows = JSON.stringify(rows);
+      context.test = "new row added"
       res.send(context);
     });
   }
