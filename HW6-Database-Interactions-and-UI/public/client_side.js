@@ -155,7 +155,7 @@ function buildTable(rows){
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
-                newCell.textContent = rows[row].date.toISOString().slice(0,10);
+                newCell.textContent = rows[row].date.slice(0,10);
                 rowNode.appendChild(newCell);
 
                 var newCell = document.createElement("td");
