@@ -37,7 +37,15 @@ function bindButtons(){
         req.send(null);
         event.preventDefault();
     })
-}  
+}
+
+document.getElementById("results_table").addEventListener('click', function(event) {
+    let target = event.target; // where was the click?
+  
+    if (target.name != "delete") return; // not on TD? Then we're not interested
+  
+    deleteRow(target); // highlight it
+});
 
 function buildTable(rows){
     // Create new Table Node on each query pull
@@ -139,14 +147,6 @@ function generateBorder(tagName){
         elements[i].style.borderStyle = "solid";
     }
 }
-
-document.getElementById("results_table").onclick = function(event) {
-    let target = event.target; // where was the click?
-  
-    if (target.name != 'delete') return; // not on TD? Then we're not interested
-  
-    deleteRow(target); // highlight it
-  };
 
 function deleteRow(button) {
     try {
