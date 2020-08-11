@@ -40,8 +40,10 @@ function bindButtons(){
     })
 
 }
+const table = document.getElementById("results_table");
 console.log("reading table:")
-document.getElementsByName("delete").addEventListener('click', function(event){
+console.log(table);
+document.addEventListener('click', function(event){
     let target = event.target; // where was the click?
     console.log("deleted");
     
