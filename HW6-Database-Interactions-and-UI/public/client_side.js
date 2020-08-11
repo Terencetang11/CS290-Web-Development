@@ -51,6 +51,14 @@ document.getElementById('results_output').addEventListener('click', function(eve
     
     // if delete button clicked
     if (target.name == 'delete') {
+        // for cases where during mid-update delete was pressed
+        document.getElementById('name_input').value = null;
+        document.getElementById('reps_input').value = null;
+        document.getElementById('weight_input').value = null;
+        document.getElementById('date_input').value = null; 
+        document.getElementById("exercise_submit").setAttribute("hidden", false)
+        document.getElementById("updates_submit").setAttribute("hidden", true)
+
         // update database for removal
         var req = new XMLHttpRequest();
         var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=delete';
@@ -135,7 +143,11 @@ document.getElementById('results_output').addEventListener('click', function(eve
             
             req.send(null);
             event.preventDefault();
-            
+
+            document.getElementById('name_input').value = null;
+            document.getElementById('reps_input').value = null;
+            document.getElementById('weight_input').value = null;
+            document.getElementById('date_input').value = null;            
             document.getElementById("exercise_submit").removeAttribute("hidden")
             document.getElementById("updates_submit").setAttribute("hidden", true)
         })
