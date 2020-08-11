@@ -28,9 +28,7 @@ function bindButtons(){
                 document.getElementById('date_input').value = null;
                 document.getElementById('unit_input').value = null;
                 
-                var testRows = [{"id":1,"name":"trapp pulls","reps":1000,"weight":100,"date":"2020-08-08T07:00:00.000Z","unit":"lbs"}]
-
-                buildTable(testRows)
+                buildTable(response.rows)
                 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -111,8 +109,7 @@ function buildTable(rows){
         }
         
     generateBorder("table")
-    generateBorder("th")
-    generateBorder("td")
+    generateBorder("tr")
 }
 
 // Style table
