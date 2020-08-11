@@ -1,7 +1,3 @@
-// builds initial from first db response
-var response = JSON.parse(req.responseText);
-buildTable(JSON.parse(response.rows));
-
 document.addEventListener('DOMContentLoaded', bindButtons);
 
 function bindButtons(){
