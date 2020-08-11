@@ -45,19 +45,20 @@ console.log("reading table:")
 console.log(table);
 table.addEventListener('click', function(event){
     let target = event.target; // where was the click?
-    console.log("deleted");
     
+    if (target.name != 'delete') return; // not on TD? Then we're not interested
+
+    deleteRow(target); // highlight it
+
 
     //if (target.name != "delete") return; // not on TD? Then we're not interested
     //deleteRow(target); // delete row
 });
 
-
-
 function deleteRow(button) {
     try {
-        //var row = button.parentNode.parentNode;
-        button.parentNode.removeChild(row)
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row)
     } catch (e) {
         alert(e);
     }
