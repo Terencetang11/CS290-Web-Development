@@ -48,12 +48,13 @@ app.get('/',function(req,res,next){
   else if (req.query.type == "insert"){
     mysql.pool.query("INSERT INTO exercise SET ?" //(`name`, 'reps', 'weight', 'date', 'unit') VALUES (?)"
     , {name: req.query.name, reps:req.query.reps, weight:req.query.weight, date:req.query.date, unit:req.query.unit}
-    , function(err, results){
+    , function(err, results, rows){
       if(err){
         next(err);
         return;
       }
       context.results = "Inserted id " + results.insertId;
+      context.results = JSON.stringify(rows);
       context.test = "new row added"
       res.type('application/json')
       res.send(context);
