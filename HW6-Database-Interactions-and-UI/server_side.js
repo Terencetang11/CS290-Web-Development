@@ -14,42 +14,25 @@ var mysql = require('./dbcon.js');
   // check if query exists OR create table query
   // render homepage 
 
-// app.get('/',function(req,res,next){
-//   var context = {};
-//   var context = {};
-//   mysql.pool.query("DROP TABLE IF EXISTS todo", function(err){
-//     var createString = "CREATE TABLE todo(" +
-//     "id INT PRIMARY KEY AUTO_INCREMENT," +
-//     "name VARCHAR(255) NOT NULL," +
-//     "done BOOLEAN," +
-//     "due DATE)";
-//     mysql.pool.query(createString, function(err){
-//       context.results = "Table reset";
-//       res.render('home',context);
-//     })
-//   });
-// });
-
 app.get('/',function(req,res,next){
   var context = {};
-  mysql.pool.query([req.query.sql] || "CREATE TABLE todo(" +
+  if (!req.query.sql){
+    mysql.pool.query(
+    // SQL query for creating a new table
+    "CREATE TABLE IF NOT EXIST exercise(" +
     "id INT PRIMARY KEY AUTO_INCREMENT," +
     "name VARCHAR(255) NOT NULL," +
     "done BOOLEAN," +
-    "due DATE)",
-    
-    
-    
-    
-    
-    [req.query.c], function(err, result){
-    if(err){
-      next(err);
-      return;
-    }
-    context.results = "Inserted id " + result.insertId;
-    res.render('home',context);
-  });
+    "due DATE)"
+    , function(err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = "Inserted id " + result.insertId;
+      res.render('home',context);
+    });
+  };
 });
 
 app.get('/delete',function(req,res,next){
