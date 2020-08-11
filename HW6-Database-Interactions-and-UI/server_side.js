@@ -53,9 +53,34 @@ app.get('/',function(req,res,next){
         next(err);
         return;
       }
-      console.log("new row added")
+      console.log("new row added");
       context.results = "Inserted id " + results.insertId;
-      context.test = "new row added"
+      context.test = "new row added";
+      mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        }
+        console.log("select query ran");
+        console.log(rows);
+        context.rows = JSON.stringify(rows);
+        context.fields = JSON.stringify(fields);
+        console.log("context output");
+        console.log(context);
+        res.type('application/json');
+        res.send(context);
+      })
+    });
+  } 
+  else if (req.query.type == "delete"){
+    mysql.pool.query("DELETE FROM todo WHERE id=?", [req.query.id], function(err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      console.log("row deleted");
+      context.results = "Deleted " + result.changedRows + " rows.";
+      context.test = "row deleted"
       mysql.pool.query('SELECT * FROM exercise', function(err, rows, fields){
         if(err){
           next(err);

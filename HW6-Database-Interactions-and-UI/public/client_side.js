@@ -40,16 +40,38 @@ function bindButtons(){
     })
 
 }
-const table = document.getElementById('results_output');
-console.log("reading table:")
-console.log(table);
-table.addEventListener('click', function(event){
+
+document.getElementById('results_output').addEventListener('click', function(event){
     let target = event.target; // where was the click?
     
-    if (target.name != 'delete') return; // not on TD? Then we're not interested
+    if (target.name == 'delete') {
+        // update database for removal
+        var req = new XMLHttpRequest();
+        var payload = 'http://flip3.engr.oregonstate.edu:11179/?type=delete';
+        payload += "&id=" + target.id;
+        
+        req.open("GET", payload, true);
+        console.log(payload);
+        req.addEventListener('load',function(){
+            if(req.status >= 200 && req.status < 400){
+                console.log("response received:")//delete this
+                var response = JSON.parse(req.responseText);
+                
+                // do something with the response
+                document.getElementById("resultsP").textContent = response.results
+                document.getElementById("rowsP").textContent = response.rows
+                document.getElementById("testP").textContent = response.test
+                
+                buildTable(JSON.parse(response.rows));
+                console.log("table built")
+        
+        deleteRow(target); // delete table row
 
-    deleteRow(target); // highlight it
+    } else if (target.name == 'update') {
 
+    } else {
+        return;
+    }
 
     //if (target.name != "delete") return; // not on TD? Then we're not interested
     //deleteRow(target); // delete row
